@@ -6,6 +6,8 @@ import random
 import copy
 import itertools
 from itertools import permutations
+import numpy as np
+from Levenshtein import distance as lstn
 
 class Tiztikz:
     def __init__(self, corpus, allgrams = None):
@@ -85,6 +87,7 @@ class Tiztikz:
 
     def _third_pass(self, allgrams, tokens):
         allgrams = self.transform_allgrams(allgrams)
+        
         tokens = set(word for line in tokens for word in line)
         tokens = list(tokens)
         #Here is where I need to start building rules
@@ -92,85 +95,116 @@ class Tiztikz:
     'probability': float('-inf'),
     'cost': float('inf'),
     'stems': [],
-    'prefixes':['NULL'],
-    'suffixes':['NULL'],
+    'prefixes':[('NULL', 0)],
+    'suffixes':[('NULL', 0)],
     'combinations': []
 }
 
         #let's initialized an unprobable and expensive grammar, every word and no affixes or stems!
-        grammar = self.build_grammar(grammar, tokens, allgrams)
+        grammars = [self.build_grammar(grammar, tokens, allgrams)]
         efficiency = grammar['cost']
-        improved = True
-        t = 20
+        probability = float('-inf')
+        c_improved = True
+        t = 500
         counter = 0
-        improved = True
-        while t > 1:
-            t -= 1
-            grammars = self.ratchet_grammar(grammar, tokens, allgrams, temp=random.randint(1,t), growing=improved, paths=7)
-            improved = False
-            for k,v in grammars.items():
-                print(f"The cost of {k} = {v['cost']}")
-                if v['cost'] >= efficiency:
+        growing = ['grow']
+        while t > 10:
+            counter += 1
+            if counter % 20 == 0:
+                for i, g in enumerate(grammars):
+                    with open(f"{counter}_{i}_intermediate.json", "w") as outj:
+                        json.dump(g, outj, indent=4, ensure_ascii=False)
+            print(f"The length of grammars is {len(grammars)}")
+            newgrammars = self.ratchet_grammar(grammars, tokens, allgrams, temp=random.randint(1,t), growing=growing, paths=2)
+            previous_grammars = grammars
+            grammars = []
+            c_improved = False
+            p_improved = False
+            for k,v in newgrammars.items():
+                print(f"The cost of {k} = {v['cost']}, prob = {v['probability']}")
+                if v['cost'] > efficiency:
                     efficiency = v['cost']
-                    grammar = v
-                    improved = True
-            print(f"Improved is {improved}")
-        return grammar
+                    grammars.append(v)
+                    c_improved = True
+                    t += 10
+                    growing.append(random.choice(['grow','grow','grow','grow','shrink','mutate']))
+                elif v['probability'] > probability:
+                    probability = v['probability']
+                    p_improved = True
+                    grammars.append(v)
+            if not c_improved:
+                t -= 20
+                growing.append(random.choice(['shrink','mutate']))
+                grammars.append(previous_grammars[0])
+            if not p_improved:
+                t -= 20
+                growing.append(random.choice(['shrink','mutate']))
+                grammars.append(previous_grammars[-1])
+            print(f"Cost is {c_improved}, and Probability is {p_improved}")
+        return grammars[0]
 
                 
     def build_grammar(self, grammar, tokens, allgrams):
+        #Need to make sure that our rules are building correctly, but we now have the probabilities squared away!
         grammar['combinations'] = []
         for word in tqdm(tokens, desc="building grammar"):
-            decomposition = self.recursive_decompose(word, grammar['prefixes'], grammar['stems'], grammar['suffixes'])
+            decomposition = self.recursive_decompose(word, [pre for pre, prob in grammar['prefixes']], [stem for stem, prob in grammar['stems']], [suf for suf, prob in grammar['suffixes']])
             if decomposition:
+                breakdown = [(el, allgrams[str(len(el))][el][k]) for k,v in decomposition.items() for el in v]
+                word = '-'.join([br[0] for br in breakdown])
+                prob = sum([br[1] for br in breakdown])/len(breakdown)
+                decomposition['stems'] = decomposition['stems'][0]
                 grammar = self.shift(grammar, decomposition) #This makes used rules less likely to be dropped. 
                 ppool = [p for p in decomposition['prefixes']]
                 spool = [s for s in decomposition['suffixes']]
                 if grammar['combinations']:
                     for prefix in decomposition['prefixes']:
                         for affixation in grammar['combinations']:
-                            if affixation['prefix']:
-                                if prefix == affixation['prefix']:
-                                    affixation['stems'].append(decomposition['stem'])
-                                    affixation['generates'].append((prefix + decomposition['stem'], word))
+                            if affixation['prefixes']:
+                                if prefix == affixation['prefixes']:
+                                    affixation['stems'].append(decomposition['stems'])
+                                    affixation['generates'].append((prefix + decomposition['stems'], word))
+                                    affixation['probability'].append(prob)
                                     ppool.remove(prefix)
                                     break
                     for suffix in decomposition['suffixes']:
                         for affixation in grammar['combinations']:
-                            if affixation['suffix']:
-                                if suffix in affixation['suffix']:
-                                    affixation['stems'].append(decomposition['stem'])
-                                    affixation['generates'].append((decomposition['stem'] + suffix, word))
+                            if affixation['suffixes']:
+                                if suffix in affixation['suffixes']:
+                                    affixation['stems'].append(decomposition['stems'])
+                                    affixation['generates'].append((decomposition['stems'] + suffix, word))
+                                    affixation['probability'].append(prob)
                                     spool.remove(suffix)
                                     break
                 for p in ppool:
                     #then we don't have a rule that matches this. We need to make a rule. 
                     grammar['combinations'].append({
-                        'stems': [stem for stem in decomposition['stem'] if stem],
-                        'prefix': p,
-                        'suffix': None,
-                        'probability': [0], #we'll need to build a custom function here :D 
-                        'generates': [(p + decomposition['stem'], word)]
+                        'stems': [decomposition['stems']],
+                        'prefixes': p,
+                        'suffixes': None,
+                        'probability': [prob], #we'll need to build a custom function here :D 
+                        'generates': [(p + decomposition['stems'], word)]
                     })
                 for s in spool:
                     grammar['combinations'].append({
-                        'stems': [stem for stem in decomposition['stem'] if stem],
-                        'prefix': None,
-                        'suffix': s,
-                        'probability': [0], #we'll need to build a custom function here :D 
-                        'generates': [(decomposition['stem'] + s, word)]
+                        'stems': [decomposition['stems']],
+                        'prefixes': None,
+                        'suffixes': s,
+                        'probability': [prob], #we'll need to build a custom function here :D 
+                        'generates': [(decomposition['stems'] + s, word)]
                     })
             else:
                 grammar['combinations'].append(
                     {
             'stems': [word],
-            'prefix': None,
-            'suffix': None,
+            'prefixes': None,
+            'suffixes': None,
             'probability': [allgrams[str(len(word))][word]['stems']],
             'generates': [word]
         })
         grammar['probability'] = sum(p for c in grammar['combinations'] for p in c['probability'])
         grammar['cost'] = sum([len(v['generates']) for v in grammar['combinations']])/len(grammar['combinations'])
+        grammar['combinations'] = sorted(grammar['combinations'], key = lambda x:len(x['generates']), reverse=True)
         return grammar
     
     def shift(self, grammar, decomposition):
@@ -184,13 +218,13 @@ class Tiztikz:
     
     def recursive_decompose(self, target_word, prefixes, stems, suffixes, found_components=None, depth=0):
         if found_components is None:
-            found_components = {'prefixes': [], 'stem': [], 'suffixes': []}
+            found_components = {'prefixes': [], 'stems': [], 'suffixes': []}
 
         # Base case: If the target word matches any stem directly or no more target word to check
         if target_word in stems:
             if not found_components['prefixes'] and not found_components['suffixes']:
                 return None
-            found_components['stem'] = target_word #.append(target_word)
+            found_components['stems'] = [target_word] #.append(target_word)
             #print(f"Final decomposition at depth {depth}: {found_components}")
             return found_components
         elif not target_word or depth > 10:  # Prevent infinite recursion
@@ -225,67 +259,67 @@ class Tiztikz:
         return None
 
 
-    def ratchet_grammar(self, grammar, tokens, allgrams, temp=1, paths=3, growing=True):
+    def ratchet_grammar(self, grammars, tokens, allgrams, temp=1, paths=3, growing=['grow']):
         def mutate(mutation, allgrams, targets, temp):
             for k,v in targets.items():
-                for i in range(v+1):
-                    for combo in mutation['combinations']:
-                        if len(combo[k]) > 2:
-                            combinations = [(''.join(word), word) for word in list(itertools.product([el for el in combo[k] if len(el) < 4], repeat=2)) if ''.join(word) in allgrams[k]]
-                            if combinations:
-                                choice = random.choice(combinations)
-                                for pfx in choice[1]:
-                                    if pfx in mutation[k]:
-                                        #print(f"removing {pfx}")
-                                        mutation[k].remove(pfx)
-                                    else:
-                                        pass
-                                        #print(f"already removed {pfx}")
-                                mutation[k].append(choice[0])
-                                break
+                if len(mutation[k]) < v: continue
+                for _ in range(v):
+                    combo = random.choice(mutation[k])
+                    combinations = [pair for pair in allgrams[k] if lstn(combo[0],pair[0]) <= 2 and pair[1] > combo[1]]
+                    if combinations:
+                        replacement = random.choice(combinations)
+                        mutation[k].remove(combo)
+                        mutation[k].append(replacement)
                     if k in ['prefixes', 'suffixes']:
-                        if 'NULL' not in mutation[k]:
-                            mutation[k].append('NULL')
+                        if ('NULL', 0) not in mutation[k]:
+                            mutation[k].append(('NULL',0))
             return mutation
         
         def grow(additive, allgrams, targets, temp):
             for k,v in targets.items():
                 for _ in range((v+1)*2):
-                    additive[k].append(self.suggest_element(additive[k], allgrams[k], temp))
+                    additive[k].append(self.suggest_element(additive[k], allgrams[k], temp, k))
             return additive
 
         def shrink(purge, allgrams, targets, temp):
             for k,v in targets.items():
-                for element in purge[k]:
-                    count = sum([len(v['generates']) for v in purge['combinations'] if element in v[k]])
-                    if count < 5:
+                if len(purge[k]) < v: continue
+                average = purge['cost'] * 2
+                for _ in range(v):
+                    element = random.choice(purge[k])
+                    if element[0] == 'NULL': continue
+                    if k == 'stems':
+                        count = sum([len(v2['generates']) for v2 in purge['combinations'] if element[0] in v2[k]])
+                    else:
+                        count = sum([len(v2['generates']) for v2 in purge['combinations'] if element[0] == v2[k]])
+                    if count < average:
                         purge[k].remove(element)
                     if k in ['prefixes', 'suffixes']:
-                        if 'NULL' not in purge[k]:
+                        if ('NULL', 0) not in purge[k]:
                             purge[k].append('NULL')
             return purge
         
         pgrammars = {}
-        for i in range(1, paths + 1):
-            yes_no = [True, True, False]
-            mypath = copy.deepcopy(grammar)
-            if growing == True:
-                targets = {'stems': 10*temp, 'prefixes':1*temp,'suffixes':1*temp}
-                mypath = grow(mypath, allgrams, targets, temp)
-            else:
-                if random.choice(yes_no):
+        for j, grammar in enumerate(grammars):
+            for i in range(1, paths + 1):
+                if grammar['cost'] <= 1.25:
+                    growing = 'grow'
+                    targets = {'stems': 10*temp, 'prefixes':2*temp,'suffixes':2*temp}
+                else:
+                    growing = random.choice(growing)
                     targets = {'stems': 2*temp, 'prefixes':1*temp,'suffixes':1*temp}
+                mypath = copy.deepcopy(grammar)
+                if growing == 'grow':
+                    mypath = grow(mypath, allgrams, targets, temp)
+                elif growing == 'mutate':
                     mypath = mutate(mypath, allgrams, targets, temp)
-                if random.choice(yes_no):
-                    targets = {'stems': 2*temp, 'prefixes':1*temp,'suffixes':1*temp}
+                elif growing == 'shrink':
                     mypath = shrink(mypath, allgrams, targets, temp)
-            pgrammars[f"Possible {i}"] = self.build_grammar(mypath, tokens, allgrams)
-        
-
+                pgrammars[f"Possible {j}:{i}"] = self.build_grammar(mypath, tokens, allgrams)
         return pgrammars
     
-    def suggest_element(self, previous, allgrams, temp):
-        allgrams = list(allgrams.keys())
+    def suggest_element(self, previous, allgrams, temp, k_type):
+        #allgrams = list(allgrams.keys())
         confirmed = False
         counter = 0
         while not confirmed:
@@ -297,8 +331,12 @@ class Tiztikz:
                 if first < len(allgrams):
                     if allgrams[first] not in previous:
                         confirmed = True
+                    if k_type == 'stems' and len(allgrams[first][0]) == 1:
+                        confirmed = False
             if counter >= len(allgrams):
-                return allgrams[0]
+                for gram in allgrams:
+                    if gram not in previous:
+                        return gram
         return allgrams[first]
 
 
@@ -470,19 +508,19 @@ class Tiztikz:
             for k2, v2 in v.items():
                 if k2 in ["**total**", "**threshold**", "**word**"]: continue
                 if len(k2) not in stage_3:
-                    stage_3[len(k2)] = {'prefix':0, 'suffix':0, 'stemix':0}
+                    stage_3[len(k2)] = {'prefixes':0, 'suffixes':0, 'stemix':0}
                 if k2 not in stage_3[len(k2)]:
-                    stage_3[len(k2)][k2] = {'prefix':v2['before']['#'], 'suffix':v2['after']['#'], 'stemix':max([sum([p for k,p in v2['before'].items() if k != '#']) + sum([p for k, p in v2['after'].items() if k != '#']), min(v2['before']['#'], v2['after']['#'])])}
+                    stage_3[len(k2)][k2] = {'prefixes':v2['before']['#'], 'suffixes':v2['after']['#'], 'stemix':max([sum([p for k,p in v2['before'].items() if k != '#']) + sum([p for k, p in v2['after'].items() if k != '#']), min(v2['before']['#'], v2['after']['#'])])}
                 else:
-                    stage_3[len(k2)][k2]['prefix'] += v2['before']['#']
-                    stage_3[len(k2)][k2]['suffix'] += v2['after']['#']
+                    stage_3[len(k2)][k2]['prefixes'] += v2['before']['#']
+                    stage_3[len(k2)][k2]['suffixes'] += v2['after']['#']
                     stage_3[len(k2)][k2]['stemix'] += max([(sum([p for k,p in v2['before'].items() if k != '#']) + sum([p for k, p in v2['after'].items() if k != '#'])), min(v2['before']['#'], v2['after']['#'])])
-                stage_3[len(k2)]['prefix'] += v2['before']['#']
-                stage_3[len(k2)]['suffix'] += v2['after']['#']
+                stage_3[len(k2)]['prefixes'] += v2['before']['#']
+                stage_3[len(k2)]['suffixes'] += v2['after']['#']
                 stage_3[len(k2)]['stemix'] += max([(sum([p for k,p in v2['before'].items() if k != '#']) + sum([p for k, p in v2['after'].items() if k != '#'])), min(v2['before']['#'], v2['after']['#'])])
-                print("And done!")
         print("And done!")
         
+        #Just need to fix the stems
         transformed = {str(k):{} for k in stage_1.keys()}
         for n, details in allgrams.items():
             for element, data in details.items():
@@ -493,13 +531,31 @@ class Tiztikz:
                     s1_lognorm = self.safe_log(stage_1[len(element)][element],stage_1[len(element)]['**total**'])
                     s2_lognorm = self.safe_log(stage_2[len(element)][element],stage_2[len(element)]['**total**'])
                     transformed[n][element] = {
-                        "prefix": s1_lognorm + s2_lognorm + self.safe_log(stage_3[len(element)][element]['prefix'],stage_3[len(element)]['prefix']),
-                        "suffixes": s1_lognorm + s2_lognorm + self.safe_log(stage_3[len(element)][element]['suffix'],stage_3[len(element)]['suffix']),
-                        "stems": s1_lognorm + s2_lognorm + self.safe_log(stage_3[len(element)][element]['stemix'],stage_3[len(element)]['stemix'])
+                        "prefixes": s1_lognorm + s2_lognorm + self.safe_log(stage_3[len(element)][element]['prefixes'],stage_3[len(element)]['prefixes']),
+                        "suffixes": s1_lognorm + s2_lognorm + self.safe_log(stage_3[len(element)][element]['suffixes'],stage_3[len(element)]['suffixes']),
+                        "stems": s1_lognorm + s2_lognorm + self.safe_log((stage_3[len(element)][element]['stemix']/ ((stage_3[len(element)][element]['prefixes'] + stage_3[len(element)][element]['suffixes']) + 1)),stage_3[len(element)]['stemix'])
                     }
-
+        #Final stage, gaussian distribution and sorting!
+        allgrams2 = {'prefixes':[], 'suffixes':[], 'stems':[]}
+        for v in transformed.values():
+            for k2, v2 in v.items():
+                for k3, v3 in v2.items():
+                    if k3 == 'stems':
+                        prob = self.gaussian(len(k2), v3, mu = 4.5, sigma=.75)
+                        if len(k2) < 3: prob -= 10
+                        allgrams2[k3].append((k2, prob))
+                    else:
+                        allgrams2[k3].append((k2, self.gaussian(len(k2), v3)))
         
+        for k, v in allgrams2.items():
+            transformed[k] = sorted(v, key= lambda x:x[1], reverse=True)
         return transformed
+    
+    def gaussian(self, n, x, mu = 2, sigma = 1.5):
+        gaussian_multiplier = np.exp(-((n - mu)**2) / (2 * sigma**2))
+        # Since `x` is already in log-scale, add the log of the Gaussian multiplier to `x`
+        adjusted_probability = x + np.log(gaussian_multiplier)
+        return adjusted_probability
 
 
 
