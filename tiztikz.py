@@ -207,6 +207,48 @@ class Tiztikz:
         grammar['combinations'] = sorted(grammar['combinations'], key = lambda x:len(x['generates']), reverse=True)
         return grammar
     
+    
+    def build_grammar_stem(self, grammar, tokens, allgrams):
+        #Need to make sure that our rules are building correctly, but we now have the probabilities squared away!
+        grammar['combinations'] = []
+        for word in tqdm(tokens, desc="building grammar"):
+            decomposition = self.recursive_decompose(word, [pre for pre, prob in grammar['prefixes']], [stem for stem, prob in grammar['stems']], [suf for suf, prob in grammar['suffixes']])
+            if decomposition:
+                breakdown = [(el, allgrams[str(len(el))][el][k]) for k,v in decomposition.items() for el in v]
+                word = '-'.join([br[0] for br in breakdown])
+                prob = sum([br[1] for br in breakdown])/len(breakdown)
+                decomposition['stems'] = decomposition['stems']
+                grammar = self.shift(grammar, decomposition) #This makes used rules less likely to be dropped. 
+                ppool = [p for p in decomposition['prefixes']]
+                spool = [s for s in decomposition['suffixes']]
+                if grammar['combinations']:
+                    for stem in decomposition['stems']:
+                        for affixation in grammar['combinations']:
+                            if affixation['stems']:
+                                if stem == affixation['stems']:
+                                    for prfx in decomposition['prefixes']:
+                                        if prfx not in affixation['prefixes']:
+                                            affixation['prefixes'].append(prfx)
+                                    for sffx in decomposition['suffixes']:
+                                        if sffx not in affixation['suffixes']:
+                                            affixation['suffixes'].append(prfx)
+                                    affixation['generates'].append((breakdown, word))
+                                    affixation['probability'].append(prob)
+                                    break
+            else:
+                grammar['combinations'].append(
+                    {
+            'stems': [word],
+            'prefixes': None,
+            'suffixes': None,
+            'probability': [allgrams[str(len(word))][word]['stems']],
+            'generates': [word]
+        })
+        grammar['probability'] = sum(p for c in grammar['combinations'] for p in c['probability'])
+        grammar['cost'] = sum([len(v['generates']) for v in grammar['combinations']])/len(grammar['combinations'])
+        grammar['combinations'] = sorted(grammar['combinations'], key = lambda x:len(x['generates']), reverse=True)
+        return grammar
+    
     def shift(self, grammar, decomposition):
         for k,v in decomposition.items():
             for word in v:
