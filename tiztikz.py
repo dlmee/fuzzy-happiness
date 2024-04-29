@@ -11,7 +11,7 @@ from Levenshtein import distance as lstn
 
 class Tiztikz:
     def __init__(self, corpus, allgrams = None):
-        tokens = self.read_txt(corpus)
+        tokens = self.read_dev_txt(corpus)
         self.allgrams = self.morph_merge(tokens, allgrams=allgrams)
         with open("morphemic_breakdown.json", "w") as outj:
             json.dump(self.allgrams, outj, indent=4, ensure_ascii=False)
@@ -25,6 +25,21 @@ class Tiztikz:
         lines = [[re.sub("[^a-z]", "", word.lower()) for word in re.split(" |-|\n|—", line)] for line in lines]
         lines = [[word for word in line if word] for line in lines]
         return lines
+
+    def read_dev_txt(self, corpus):
+        text = corpus
+        with open(text, encoding="utf-8") as fi:
+            lines = fi.read()
+        # Split lines based on sentence end markers
+        lines = re.split("[\.\?\!]", lines)
+        # Define a pattern to match Devanagari characters only
+        devanagari_pattern = r'[\u0900-\u097F]+'
+        # Process each line
+        lines = [[re.sub(r"[^\u0900-\u097F]", "", word) for word in re.split(" |-|\n|—", line)] for line in lines]
+        # Filter out empty words and words containing Roman characters
+        lines = [[word for word in line if word and re.fullmatch(devanagari_pattern, word)] for line in lines]
+        return lines
+
 
     def morph_merge(self, tokens, allgrams=None):
         max_length = 0
@@ -602,4 +617,4 @@ class Tiztikz:
 
 
 if __name__ == "__main__":
-    mytiztikz = Tiztikz('sg.txt', allgrams='allgrams.json') #, ,  allgrams='allgrams.json'
+    mytiztikz = Tiztikz('data/source_texts/nepali_bible_reformatted.txt', allgrams=None) #, ,  allgrams='allgrams.json'

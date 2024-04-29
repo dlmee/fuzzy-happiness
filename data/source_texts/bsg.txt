@@ -1,0 +1,1634 @@
+BROAD SCOTS GLOSSARY
+Note from John Bechard, creator of this Electronic text.
+The following is a list of Scottish words which are found in George
+MacDonald’s “Sir Gibbie”. I have compiled this list myself and worked
+out the definitions from context with the help of Margaret West, from
+Leven in Fife, Scotland, and also by referring to a word list found
+in a collection of poems by Robert Burns and “Chamber’s Scots Dialect
+Dictionary from the 17th century to the Present” c. 1911. I have tried
+to be as thorough as possible given the limited resources and welcome
+any feedback on this list which may be wrong (my e-mail address is
+JaBBechard@aol.com). This was never meant to be a comprehensive list
+of the National Scottish Language, but rather an aid to understanding
+some of the conversations in this text which are carried out in the
+Broad Scots. I do apologise for any mistakes or omissions. I aimed for
+my list to be very comprehensive. As well, it includes words that are
+quite obvious to native English speakers, only spelled in such a way to
+demonstrate the local pronunciation.
+There is a web site which features the Scottish language, DSL,
+or Dictionaries of the Scots Language; and the National Scottish
+Dictionary can be consulted if you have access to one.
+This list is a compressed form that consists of three columns for
+‘word’, ‘definition’, and ‘additional notes’. It is set up with a comma
+between each item and a hard return at the end of each definition.
+This means that this section could easily be cut and pasted into its
+own text file and imported into a database or spreadsheet as a comma
+separated variable file (.csv file). Failing that, you could do a
+search and replace for commas in this section (I have not used any
+commas in my words, definitions or notes) and replace the commas with
+spaces or tabs.
+
+Word, Definition, Notes
+a’, all; every, also have,
+a’ body, everyone; everybody,
+a’ thing, everything; anything,
+aboot, about,
+absteen, abstain,
+abune, above; up,
+accoont, account,
+accordin’, according,
+accre, acre,
+ae, one,
+aff, off; away; past; beyond,
+affrontit, affronted; disgraced, also ashamed; shamed,
+afore, before; in front of,
+aften, often,
+again’, against, opposed to,
+agreeable, in agreement; willing,
+Ahchan, Achan, reference to Joshua 7,
+ahin’, behind; after; at the back of,
+aiblins, perhaps; possibly,
+aigles, eagles,
+Aigypt, Egypt,
+ain, own, also one,
+aipple, apple,
+airm, arm,
+airmour, armour,
+airms, arms, also coat of arms; crest,
+airt, quarter; direction; compass point,
+airthquack, earthquake,
+aiss, ashes,
+ait, eat,
+aiten, eaten,
+aith, oath,
+aither, either,
+aiven, even,
+alane, alone,
+alloo, allow,
+allooin’, allowing,
+Almichty, Almighty; God,
+amids, amidst,
+amo’, among,
+an’, and,
+ance, once,
+ane, one, also a single person or thing,
+aneath, beneath; under,
+anent, opposite to; in front of, also concerning,
+aneth, beneath; under,
+angert, angered; angry, also grieved,
+anither, another,
+anker, liquid measure of 4 gallons,
+a’ready, already,
+arrenge, arrange,
+as lang ’s, as long as,
+as sune ’s, as soon as,
+ashmy, asthma,
+’at, that,
+at farest, at the farthest, also at the latest,
+ates, hates,
+a’thegither, altogether,
+a’thing, everything; anything,
+’at’ll, that will,
+’at’s, that is,
+attreebute, attribute,
+atween, between,
+auld, old,
+auld langsyne, days of long ago, also old friendship,
+auld-fashioned, old-fashioned,
+auncient, ancient,
+Aw, I, also all; owning,
+awa, away,
+awfu’, awful,
+Awva!, At all!, exclamation of surprise; contempt,
+aye, yes; indeed, exclamation of surprise; wonder,
+ayont, beyond; after,
+bairn, child,
+bairnies, little children, diminutive,
+baith, both,
+bale-fire, any large fire; bonfire,
+ballant, ballad; song,
+banes, bones,
+bannin’, cursing; swearing; abuse; scold,
+bannock, round flat griddle-baked cake,
+Barebanes, bare bones (i.e. death),
+bawbee, half penny,
+bealt, festered,
+beastie, beast; animal, diminutive to express sympathy or affection,
+beets, boots,
+behaud, withhold; wait; delay, also behold,
+beirin’, bearing; allowing,
+belang, belong,
+believet, believed,
+ben, in; inside; into; within; inwards, also inner room,
+be ’t, be it,
+bethink (oneself), stop to think; reflect,
+beuk, book, also Bible,
+Bible-word, word of honour,
+bicker, wooden vessel,
+bidden, abided; stayed,
+bide, endure; bear; remain; live, also desire; wish,
+bidena, do not bide; do not stay,
+bield, protection; shelter; cover,
+bigg, build,
+biggit, built,
+bin’, bind,
+binna, be not,
+birdie, little bird, diminutive,
+birk, birch tree,
+bit, but; bit, also little-diminutive,
+blate, over-modest; bashful; shy,
+blaw, blow,
+bleck, black; smut, also nonplus; perplex,
+bledder, bleater; snipe, also foolish or idle talker,
+blether, talk nonsense; babble; boast,
+blew, blue,
+blin’t, blinded,
+blude, blood,
+bluidy, bloody,
+boady, body,
+boasoms, bosoms,
+boatle, bottle (of whisky),
+boddom, bottom,
+bodies, people; fellows; folk,
+bodit, boded,
+body, person; fellow, also body,
+bonnie, good; beautiful; pretty; handsome,
+boortree, shrub elder,
+bosky, wild; unfrequented,
+bossie, large wooden bowl, serving bowl,
+boucht, bought,
+bow-ribbit, bent in the ribs,
+brackens, bracken; coarse fern,
+brae, hill; hillside; high ground by a river,
+brainch, branch,
+braird, first sprouting of young grain,
+brak, break,
+brakfast, breakfast,
+bran’er, brander; grating; gridiron; trestle,
+braw, beautiful; good; fine, also lovely (girl); handsome (boy),
+bray, press; squeeze; push,
+bree, brew; whisky; broth; gravy,
+breeks, breeches; trousers,
+breist, breast,
+breistie, little breast, diminutive,
+breith, breath,
+bridle, modify,
+brither, brother,
+brocken, broken,
+brods, boards; (book covers),
+broo, brow,
+broom, shrub with bright yellow flowers,
+broonie, brownie; benevolent elf,
+brose, water; soup; meal,
+broucht, brought,
+brunt, burned,
+buik, book, also Bible,
+bun’le, bundle,
+burn, water; stream; brook,
+burnie, little stream, diminutive,
+bursten, burst,
+buss, bush,
+butterflees, butterflies,
+by ordinar’, out of the ordinary; supernatural,
+byke, hive; swarm; crowd,
+byre, cowshed,
+ca’, call; name,
+ca’d, called,
+ca’in, calling,
+cairry, carry,
+caitiff, coward; cowardly, more of an older English word than Scots,
+caller, fresh; refreshing; cool,
+cam, came,
+camna, did not come,
+canna, cannot,
+carena, do not care,
+carolled, sang (carols),
+cast, thrown off; discarded (clothes),
+casten, spoilt; worthless; thrown aside,
+catched, caught,
+caul’, cold,
+caup, small wooden bowl,
+’cause, because,
+caw, drive; impel; hammer,
+cawpable, capable,
+’cep, except; but,
+certie, of a truth; certainly,
+chaps, knocks; hammers; strikes; raps,
+chaumer, chamber; room,
+cheek, side,
+cheemistry, chemistry,
+cheenge, change,
+cheerie, cheery,
+cheese, choose,
+chiel, child; young person, term of fondness or intimacy,
+chop, shop; store,
+chopdoor, shop door,
+claes, clothes; dress,
+clan, group; class; coterie,
+clappers, door knockers; rattles,
+clean, altogether; entirely, also comely; shapely; empty; clean,
+cled, clothed; clad,
+cleed, clothe; shelter,
+clim’, climb,
+cloaset, (prayer) closet,
+cloods, clouds,
+cloot, clout; box (ear); beat; slap, also patch; mend,
+closed, enclosed,
+closet, room; bedroom,
+coaties, children’s coats or petticoats,
+cobblin’, cobbling; shoemaking,
+cock-crawin’, crowing of the cock,
+coffer, legacy of wealth; fortune,
+colliginer, college student, also college boy,
+colloguin’, associating; conspiring; plotting,
+Come awa ben, Come on in,
+Come yer wa’s in, Come on in,
+comena, do not come,
+concernt, concerned,
+conduckit, conducted,
+conneckit, connected,
+consaive, conceive,
+considert, considered,
+consortit, consorted,
+contentit, contented,
+contrar’, contrary,
+coo, cow,
+cooard, coward,
+coontenance, countenance,
+coorse, coarse, also course
+cottar, farm tenant; cottager,
+couldna, could not,
+couples, rafters,
+cowt, colt,
+crap o’ the wa’, natural shelf between wall and roof,
+cratur, creature,
+craw, crow; rook (types of birds),
+creepie, (three legged) stool, a child’s chair,
+creepit, crept; crawled,
+crook, hooked iron chain inside a chimney, for hanging
+cooking pots on,
+cry, call; summon,
+cud, could,
+cudna, could not,
+curriet, curried; dressed,
+cursit, cursed,
+cuttit, cut; harvested,
+cweentry, country,
+cwite, coat,
+dacency, decency,
+dacent, decent,
+dale, deal; fir-or pinewood plank,
+damps, coal-pit gases,
+dang, knock; bang; drive,
+daud, blow; strike; abuse,
+daudit, buffeted; struck,
+dauner, stroll; saunter,
+daur, dare; challenge,
+daurna, dare not; do not dare,
+daursay, dare say,
+Dawvid, David,
+dearie, sweetheart; darling,
+deavt, deafened,
+dee, do, also die,
+deed, died, also deed,
+’deed, indeed,
+dee’d, died,
+deein’, doing, also dying,
+deen, done,
+deevil, devil,
+deevilry, devilry,
+deid, dead,
+deif, deaf,
+deil, devil,
+deith, death,
+delicht, delight,
+dementit, demented; mad; crazy,
+denner, dinner,
+dertin’, darting,
+deuk-quack, duck quack,
+deuks, ducks,
+didna, did not,
+differ, difference, also differ,
+din, sound; din,
+dingin’, overcoming; wearying; vexing,
+dinna, do not,
+dinna fling the calf efter the coo, don’t give up,
+also baby/bathwater,
+dirt, worthless persons or things, term of contempt
+dis, does,
+disappint, disappoint,
+discoorse, discourse,
+disna, does not,
+dissiples, disciples,
+div, do,
+dod!, God! (exclamation),
+doggie, little dog, diminutive,
+doobt, suspect; know; doubt, have an unpleasant conviction,
+doobtna, do not suspect; do not know, also does not doubt,
+dooms, extremely; exceedingly,
+doon, down,
+door-cheek, door-post; threshold,
+door-sill, threshold,
+doos, doves,
+douce, gentle; sensible; sober; prudent,
+doup, bottom; backside; buttocks,
+draigon, dragon, reference to Revelation 12-13,
+dram, glass of whisky,
+drap, drop; small quantity of,
+drappit, dropped,
+drappy, little drop; a little (liquor), diminutive,
+drear, dreary; dreariness; tedium,
+dree, endure; undergo; suffer,
+dree my weird, undergo my doom,
+dreemt, dreamed,
+dreid, dread,
+dreidfu’, dreadful; dreadfully,
+drookit, drenched; soaked,
+droon, drown,
+drop, drop-shaped earring, also drop,
+drouth, thirst; dryness, also drought,
+drouthie, thirsty; dry,
+drucken, drunken; tipsy,
+du, do,
+duds, clothes; rags; tatters,
+duin’, doing,
+dulse, type of seaweed,
+dummie, little mute person, diminutive,
+dune, done,
+dyke, wall of stone or turf,
+ear’, early,
+ee, eye,
+e’e, eye,
+eedit, heeded,
+een, eyes,
+e’en, even; just; simply, also eyes; evening,
+eese, use,
+efter, after; afterwards,
+else, otherwise; at another time; already,
+Embrough, Edinburgh,
+en’, end,
+endeevour, endeavour,
+eneuch, enough,
+enstance, instance,
+er, ere; before,
+ettle, reach; intend; purpose; aim,
+even, even; compare,
+ever, before, also ever,
+ever-mair, ever more,
+exemple, example,
+expeckit, expected,
+fa’, fall; befall,
+failt, failed,
+faimily, family,
+fain, eager; anxious; fond, also fondly,
+fa’in’, falling,
+fallow, fellow; chap,
+fallow-feelin’, mutual feeling,
+fan’, found,
+fa’ntit, fainted,
+fardin’, farthing,
+faulds, folds,
+fause, false,
+fau’t, fault; blame,
+fawvour, favour,
+fearfu’, fearful; easily frightened,
+fearsome, terrifying; fearful; awful,
+feart, afraid; frightened; scared,
+feathert, feathered,
+fecht, fight; struggle,
+feck, value; worth; advantage; majority,
+fee, hire oneself out,
+feel, foolish, also fool,
+fegs, truly, mild oath; exclamation of surprise,
+fell, very; potent; keen; harsh; sharp, intensifies; also turf,
+fell-dyke, wall made of layers of sod,
+fellow-cratur, fellow creature,
+fells, sods,
+feow, few,
+fess, fetch,
+fest, fast,
+fey, doomed (to death),
+fillit, filled,
+fin’, find; feel,
+Fin’on haddie, smoked haddock,
+fit, foot; base, also fit; capable; able,
+flax, flax; wick,
+flee, fly (insect),
+fleers, floors,
+fleg, blow; kick; stroke,
+fleggit, blew; kicked; stroked,
+fleyt, terrified; frightened,
+fling, kick; throw,
+flit, shift; remove; depart,
+flure, floor,
+forby, as well; as well as; besides,
+forgie, forgive,
+forgi’en, forgiven,
+forgifness, forgiveness,
+forkit, forked,
+foucht, fought,
+fowk, folk,
+fowth, plenty; abundance; full measure,
+frae, from,
+frank, generous; lavish, also generously,
+fricht, frighten; scare away,
+frichtit, frightened; scared away,
+fule, fool,
+fulfillt, fulfilled,
+fundation, foundation,
+fun’t, founded,
+fut, foot,
+gae, gave,
+gaed, went,
+gaein’, going,
+’gain, by; nearly; almost,
+gairdens, gardens,
+gait, way; fashion, also route; street,
+gaits, ways, also routes; streets,
+ga’le, gable,
+gane, gone,
+gang, go; goes; depart; walk,
+gang yer wa’s, go on,
+gar, cause; make; compel,
+gat, got,
+gauin’, going,
+gear, possessions; money; property, also livestock,
+geese, goose,
+German Ocean, old reference to the English Channel & North Sea,
+gerse, grass,
+gether, gather,
+gey, very; considerable,
+geyan, considerably; somewhat; rather,
+ghaist, ghost,
+ghem, game (hunted animal),
+gie, give,
+gied, gave,
+giein’, giving,
+gien, if; as if; then; whether,
+gi’en, given
+gien’t, if it,
+gies, gives,
+girdle, griddle for baking scones, iron disc,
+girnels, granaries; meal-chests,
+glaid, glad,
+glaiss, glass,
+glamour, spell; charm; enchantment,
+glaur, mud; dirt; ooze,
+gleg, quick; lively; smart; quick-witted,
+glimp, glimpse; glance, also the least degree,
+glintin’, twinkling; glittering,
+gloamin’, twilight; dusk,
+gnerlet, gnarled,
+goodman, master; husband; head of household,
+gowans, daisies,
+gowany, flowered with daisies,
+gowd, gold,
+gowk, cuckoo; fool; blockhead,
+gowkit, foolish; silly,
+graivelly, gravely,
+gran’, grand; capital; first-rate,
+gran’est, grandest,
+gran’father, grandfather,
+green bree, cesspool, also stagnant pool by a dunghill,
+greitin’, crying; weeping,
+grenite, granite,
+gret, great,
+grief, grieve,
+grip, grasp; understand,
+grippit, grasped; understood,
+grue, feeling of horror; tremor,
+grum’lin’, grumbling,
+grup, grip; grasp,
+gruppit, gripped; grabbed,
+gudeman, master; husband; head of household,
+guid, good, also God,
+guid-hertit, good-hearted,
+guidit, treated; handled; managed,
+guiss, guess,
+haddie, haddock,
+hadna, had not,
+hae, have; has,
+hae a news, talk; gossip,
+haein, having,
+haein’, having,
+haena, have not,
+haill, whole,
+hairm, harm,
+Haith!, Faith!, exclamation of surprise,
+haithen, heathen,
+haiven, heaven,
+haiver, talk nonsense,
+hale, whole,
+half-hoor, half-hour,
+hame, home,
+han’, hand,
+hang, hanged, also made,
+hangt, hanged,
+hanks, rope; coil; skein of cotton,
+han’le, handle,
+hantle, much; large quantity; far,
+hap, cover; wrap; shield,
+h’ard, heard,
+hark, listen,
+harns, brains,
+hasna, does not have,
+haud, hold; keep,
+hauden, held; kept,
+haugh, river-meadow,
+hause, neck; throat,
+hawpy, happy,
+haymows, large haystacks,
+heap, very much; heap,
+hearken, hearken; hear; listen to,
+hearten, encourage,
+Hech!, Oh!, strange!, a sighing exclamation,
+hed, had,
+hedna, had not,
+heedna, heed not; do not heed,
+heicht, height,
+heid, head; heading,
+heigh, high,
+helpit, helped,
+hen-scraich, chicken cackle, lit. chicken scream,
+herd, herd-boy; cow-boy, also herd,
+hermony, harmony,
+hersel’, herself,
+hert, heart,
+her ’t, it to her,
+hertenin’, enheartening; encouraging,
+hertless, heartless,
+herty, heartily; hearty,
+hid, had, also hid,
+hield, held,
+hillie, little hill, diminutive,
+himsel’, himself,
+hin’, hind; backside,
+hin’ side afore, back to front,
+hing, hang,
+hirplin, limping; hobbling,
+his, has, also his; us (emphatic),
+hit, it, emphatic,
+hoarible, horrible,
+hoo, how,
+hoor, hour,
+hoose, house,
+hoosie, little house, diminutive,
+hoots, exclamation of doubt or contempt,
+hose, stocking,
+houff, haunt,
+houp, hope,
+how, hollow; valley; glen,
+hum’le, hornless; fingerless,
+hun’ers, hundreds,
+hunger-like, shrivelled; lacking nutrients,
+hungert, starved,
+hurtit, hurt,
+hyne, far (away),
+i’, in; into,
+I doobt, I know; I suspect,
+I wat, I know; I assure (you),
+idleset, idleness; frivolous amusement,
+ilk(a), every; each, also common; ordinary,
+ill, bad; evil; hard; harsh, also misfortune; harm,
+’ill, will,
+ill-fauredest, most unbecoming or unmannerly,
+ill-guideship, mismanagement; ill-treatment,
+ill-guidit, mismanaged; ill-treated,
+’im, him,
+imaigine, imagine,
+immorawlity, immorality,
+in atween, in the meantime; between,
+informt, informed,
+ingle-neuk, chimney-corner or recess,
+inten’, intend,
+inten’it, intended,
+intil, into; in; within,
+inveet, invite; invitation,
+inveetit, invited,
+ir, are,
+’is, his,
+I s’ awa, I’m off; I’d better go,
+Ise, I shall,
+isna, is not,
+i’stead, instead,
+ither, other; another; further,
+’ithin, within,
+itsel’, itself,
+jabble, ripple; small broken waves,
+jaws, billows; splashes; surges,
+Jeames, James,
+jeedge, judge,
+Jerooslem, Jerusalem,
+jine, join,
+jints, joints,
+jist, just,
+j’ists, joists,
+jography, geography,
+jooggy, jigger; shot (of whisky),
+justifeed, justified,
+kail-wife, woman who sells colewort,
+kaimbt, combed,
+keepit, kept,
+keerious, curious,
+ken, know; be acquainted with; recognise,
+kenna, do not know,
+kenspeckle, conspicuous, easily recognised from some peculiarity,
+kent, known; knew,
+killt, killed,
+kin’, kind; nature; sort; agreeable, also somewhat; in some degree,
+kin’ness, kindness,
+kirk, church,
+kirkyaird, churchyard,
+kist, chest; coffer; box; chest of drawers,
+knicht, knight,
+koft, bought,
+kye, cattle; cows,
+laad, lad; boy, term of commendation or reverence,
+laddie, boy, term of affection,
+lads, boys, term of commendation or reverence,
+laidders, ladders,
+laird, landed proprietor; squire; lord,
+lairick, larch (type of tree),
+lairt, stuck fast (in mud or snow),
+laith, loath; unwilling; reluctant,
+laithly, loathsome; foul; repulsive,
+Laitin, Latin,
+lan’, land; country; ground,
+lane(s), lone; alone; lonely; solitary,
+lang, long; big; large, also slow; tedious,
+langer, longer,
+langsyne, ancient; (old) times; long ago,
+lan’s, lands; estates,
+lass, girl; young woman, term of address,
+lassie, girl, term of endearment,
+lat, let; allow,
+lat gang to dirt an’ green bree, go to pot; go to ruin,
+latten, let; allowed,
+lauch, laugh,
+lave, rest; remainder; others, also leave,
+laverock, lark (type of bird),
+lawfu’, lawful,
+lea’, leave,
+lear, learning; education; lore, also teach,
+learn, learn, also teach,
+learnt, learned, also taught,
+leddies, ladies,
+leddy, lady,
+lee, pasture; fallow ground, also shelter from wind or rain,
+lee’d, lied; told lies,
+lees, lies,
+leest, least,
+leeve, live,
+leevin’, living; living being,
+leevit, lived,
+leeward, towards the grassland, also towards the sheltered side,
+len’, lend; give; grant, also loan,
+len’th, length,
+leuk, look; watch; appearance,
+licht, light,
+lichtin’, lighting,
+lickit, thrashed; punished; struck,
+lift, load; boost; lift; helping hand, also sky; heavens,
+like, like; likely to; looking as if to, also as it were; as if,
+likesna, does not like,
+likit, liked,
+liltin’, singing softly; humming,
+lingelt, fastened; fettered; hobbled,
+lippen, trust; depend on,
+livin’, living,
+’ll, will,
+loch, loch; lake,
+lodd, loaded,
+lo’denin’, loading,
+lo’dent, loaded,
+lo’e, love,
+lo’esome, loveable; lovely; winsome,
+lood, loud,
+loon, rascal; rogue; ragamuffin,
+loot, let; allowed; permitted,
+Losh!, corrupt form of ‘Lord’, exclamation of surprise or wonder,
+low, flame,
+lowse, loose; free,
+lucifer spunks, lucifer-matches,
+lug, ear, also shallow wooden dish,
+luik, look,
+luikit, looked,
+lum, chimney,
+lythe, shelter,
+mainner, manner,
+mainteen, maintain,
+mair, more; greater,
+mairtins, martins (type of bird),
+maist, most; mostly,
+’maist, almost,
+maister, master; mister,
+maitter, matter,
+mak, make; do,
+mankin’, mankind,
+mappies, young rabbits, diminutive,
+maun, must; have to,
+maunna, must not; may not,
+mavis, song-thrush (type of bird),
+mayhap, perhaps; maybe,
+mayna, may not,
+mealock, crumb (of oatcake etc.),
+meen, moon,
+meenute, minute,
+meeserable, miserable,
+meesery, misery,
+mem, Ma’am; Miss; Madam,
+mendit, mended; healed,
+menseless, ill-bred; boorish; unmannerly,
+mercifu’, merciful; favourable,
+merriage, marriage,
+merry, marry, also merry,
+mervel, marvel,
+mesel’, myself,
+micht, might,
+michtna, might not,
+michty, mighty; God,
+midden, dunghill; manure pile,
+midge, midge; gnat; mosquito,
+mids, midst; middle,
+miltin’, melting,
+min’, mind; recollection, also recollect; remember,
+minnin, minnow,
+min’s, minds; reminds; recollects,
+mint, aimed at; intended to; attempted,
+mintit, minded; remembered,
+mirricle, miracle,
+mischeef, mischief; injury; harm,
+misguidit, wasted; mismanaged; ill-used,
+mistak, mistake,
+mither, mother,
+mony, many,
+moo’, mouth,
+moo’fu’s, mouthfuls,
+motes, motes; specks; crumbs, reference to Matthew 7:3-5,
+moul’, mould; loose earth; top soil,
+mould, mould; loose earth; top soil,
+muckle, huge; enormous; big; great; much,
+mune, moon,
+muntains, mountains,
+muv, move; affect,
+My certie!, Take my word for it!,
+my lane, on my own,
+mysel’, myself,
+na, not; by no means,
+nae, no; none; not,
+nae wise, nowise; in no way,
+naebody, nobody; no one,
+naegait, in no wise; nowhere,
+naething, nothing,
+naither, neither,
+naitral, natural,
+nane, none,
+natur, nature,
+nearhan’, nearly; almost; near by,
+necessar’, necessary,
+neebour, neighbour,
+needcessity, necessity; state of need,
+needfu’, needful; necessary; needy,
+needna, do not need; need not,
+neeper, neighbour,
+negleckit, neglected,
+neist, next; nearest,
+nepkin, large handkerchief,
+nestie, little nest, diminutive,
+’neth, beneath; under,
+neuk, nook; recess; interior angle,
+news, talk; gossip,
+nicht, night; evening,
+nick, score; mark (as signature), also cut,
+nickum, mischievous and tricky boy,
+niffer, exchange; barter,
+nigher, nearer; closer,
+nipperty, mincing; affected,
+no, not,
+noo, now,
+nor, than; although; if, also nor,
+nor’-easter, northeast wind,
+notwithstan’in’, notwithstanding,
+noucht, nothing; not,
+nowt, cattle; oxen,
+o’, of; on,
+obleeged, obliged,
+obligatit, obligated; obliged,
+o’er, over; upon; too,
+ohn, without; un-, uses past participle not present progressive,
+ohn expeckit, unexpected,
+ony, any,
+onybody, anybody; anyone,
+onything, anything,
+oogly, ugly,
+ook, week,
+oolets, owls,
+oonprovidit, unprovided,
+oor, our,
+oor lanes, on our own,
+oorsel’s, ourselves,
+oot, out,
+ootcast, outcast,
+or, before; ere; until; by, also or,
+ordinar’, ordinary; usual; natural, also custom; habit,
+orra, odd job (man), also idle; having no settled occupation,
+ou, oh,
+oucht, anything; all, also ought,
+ow, oh, exclamation of surprise,
+ower, over; upon; too,
+owershot, very fast; racing; exploding,
+owse, ox,
+oye, grandchild; grandson; nephew,
+pairt, part,
+pale, pointed piece of wood for fencing,
+paling, fence of pales,
+passin’, passing; occasional,
+pastern, ankle (between hoof and fetlock),
+pat, put; made,
+pawkiness, shrewdness; cunning,
+peelt, skinned,
+peeramid, pyramid,
+peety, pity,
+percaution, precaution,
+perfec’, perfect; thorough; utter,
+perplexin’, perplexing,
+perris, parish,
+persuaudit, persuaded,
+perswaud, persuade,
+perswaudit, persuaded,
+pey, pay,
+pit, put; make,
+pitawtas, potatoes,
+pitten, put; made,
+plaguit, plagued; troubled,
+plet, plate; dish,
+plooed, ploughed,
+ploy, amusement; sport; escapade,
+poassible, possible,
+pooch, pocket,
+pooer, power,
+poun’, pound (sterling),
+practeesed, practised,
+prankit, played tricks on, also played fast and loose with,
+prayt, prayed,
+prech, preach,
+pree, taste; try; prove; experience,
+preevileeges, privileges,
+prentit, printed,
+press-bed, box-bed with doors,
+prest, pressed,
+preten’it, pretended,
+priestie, little priest, diminutive,
+pris’ner, prisoner,
+prood, proud,
+pruv, prove,
+pruv’t, proven; proved,
+pu’, pull,
+puckle, small quantity,
+puir, poor,
+pump, beer-shop, also pump,
+putten, put,
+pyke, pick; pluck,
+quaiet, quiet,
+quaiet sough, quiet tongue,
+quaitet, quieted; silenced,
+quest’ons, questions,
+quo’, swore; said; quoth,
+railly, really,
+raither, rather,
+rale, real; true; very,
+randy, rough; wild; riotous, also coarse-tongued; abusive,
+rant, make merry; revel,
+rase, rose,
+rave, tore,
+rax, extend; overdo it; stretch,
+reacht, reached,
+red, rid; free,
+redd, set in order; tidy; clean,
+reef, roof,
+refar, refer,
+refeese, refuse,
+reid, red,
+reik, smoke,
+releast, released,
+repentit, repented,
+reyn, rein,
+richt, right; correct, also mend,
+richtly, certainly; positively,
+ridic’lous, ridiculous; unseasonable (weather),
+riggin’, ridge; roof,
+rigs, ridges (in a ploughed field),
+rin, run,
+rintherroot, gadabout; homeless vagrant; tramp,
+rist, rest,
+ristet, rested,
+rizon, reason,
+ro’d, road; course; way,
+roomie, little room, diminutive,
+roon’, around; round,
+rottan, rat,
+rouch, rough,
+roun, whisper,
+rowtin’, bellowing; roaring; lowing,
+rucks, ricks; stacks,
+run k-nots, slip knots (that can not be untied),
+runkle, wrinkle; crease,
+’s, us; his; as; is, also has,
+s’, shall,
+sab, sob,
+sae, so; as,
+safe, safely, also safe,
+safity, safety,
+sair, sore; sorely; sad; hard; very; greatly, also serve,
+saitisfee, satisfy,
+saiven, seven,
+sall, shall,
+san’, sand,
+sang, song,
+sangie, little song, diminutive,
+sangna, did not sing,
+sankna, did not sink,
+sarious, serious,
+sark, shirt,
+sattle, settle,
+saugh, sallow; willow (type of tree),
+saven, wise; knowledgeable,
+savet, saved,
+savin’, saving, also except,
+Sawbath, Sabbath,
+sawmon, salmon,
+sawna, did not see,
+Sawtan, Satan,
+saxpence, sixpence,
+’scape, escape,
+scatter’t, scattered,
+schuil, school,
+schuilin’, schooling; education,
+schuilmaister, schoolmaster,
+schuilmaisterin’, schoolmastering; teaching,
+scomfished, suffocated; stifled; choked,
+scoorin’, scampering,
+scornin’, mocking; ridiculing,
+Scotlan’, Scotland,
+scrape, scrape; shave,
+scrattit, scratched; dug,
+scrimp, stunted; sparing, also short in weight or measure,
+scunner, disgust; disgusting; revolting,
+scunnerfu’, disgusting; loathsome; sickening,
+seemile, simile,
+seener, sooner,
+sen’, send,
+set, set out; start off; become,
+set doon Bony an’ set up Louy, lowers one; exalts another, Psalm 75:7,
+setna, do not set,
+Setterday, Saturday,
+settisfaction, satisfaction,
+shaidow, shadow,
+shal’t, shelled,
+shaw, show; reveal,
+shee, shoe,
+sheen, shoes,
+sherp, sharp,
+shirra’, sheriff,
+shoothers, shoulders,
+shot, speed; blasting; heavy breakers (sea), also shoot,
+shottin’, shooting,
+shuitable, suitable,
+sic, such; so,
+sich, sigh,
+sicht, sight,
+sids, husks of oats,
+siller, silver; money; wealth,
+simmer, Summer,
+sin, since; ago; since then, also sin; sun,
+sitten, sat,
+sizon, season,
+skirlin’, screaming; singing shrilly,
+sklet, (school) slate, also roofing slate,
+sklet-pike, slate pencil,
+sma’, small; little; slight; narrow; young,
+smokin’ flax, smouldering wick, reference to Matthew 12:20,
+snap, sharp blow; sudden stumble,
+snawba’, snowball,
+sneck, door-latch; catch (gate),
+snot, small lump (of soot),
+soary, sorry,
+some, somewhat; rather; quite; very, also some,
+somehoo, somehow,
+soo, ache; throb,
+soomin’, swimming; floating,
+soon’, sound,
+soopit, swept,
+soucht, sought,
+sough, sigh; sound of wind; deep breath,
+soughie, little sough, diminutive,
+sowens, sour pudding of oats and water,
+sowl, soul,
+spak, spoke,
+spate, spate; flood,
+speerit, spirit,
+speir, ask about; enquire; question,
+speirin’, asking about; enquiring; questioning,
+speirt, asked about; enquired; questioned,
+spen’, spend,
+spendrife, spendthrift,
+speyk, speak,
+spune, spoon,
+spunks, sparks; matches,
+spurtle, porridge stick, also wooden rod for turning oatcakes,
+stair, stairs,
+stan’, stand; stop,
+stane, stone; measure of weight, 1 stone = 14 pounds,
+stan’in, standing,
+stap, stop; stuff, also step,
+stappit, stopped; stuffed, also stepped,
+steek, shut; close; push, also stitch (as in clothing),
+stert, start; jump with surprise,
+sterve, starve,
+stick, stick; gore; butt with horns,
+stickit, stuck; gored,
+stippety-stap, short mincing gait,
+stirks, steers,
+stoot, stout; healthy; strong; plucky,
+strae, straw,
+straik, streak; stroke; caress,
+strang, strong,
+stray, lost; not at home,
+stude, stood,
+subjec’, subject,
+sud, should,
+sudna, should not,
+sune, soon; early,
+suner, sooner,
+sunest, soonest,
+supposit, supposed,
+sutor, shoemaker; cobbler,
+sweem, swim; float,
+sweir, swear,
+swoord, sword,
+syne, ago; since; then; at that time, also in (good) time,
+’t, it,
+tae, toe, also the one,
+taeless, toeless,
+ta’en, taken; seized,
+tailie, little tail, diminutive,
+tak, take; seize,
+tak a lug, have a dish,
+tak tent, look out; pay attention,
+takna, do not take,
+tane, the one,
+tap, top; tip; head,
+tarn, mountain lake,
+taucht, taught,
+tay, tea,
+tee, ‘to ye’ i.e. to you, also tea; too; also,
+teetle, title,
+tellt, told,
+tent, attention; care; heed; notice,
+teuch, tough; hard,
+teuk, took,
+than, then, also than
+thankit, thanked,
+the day, today,
+the morn, tomorrow,
+the morn’s, tomorrow is,
+the nicht, tonight,
+the noo, just now,
+thegither, together,
+themsel’s, themselves,
+thereoot, outside; out there; out-of-doors,
+thestreen, last night,
+think, feel; experience; expect; wonder,
+Think ye?, Do you think so?,
+this lang time, for a long time,
+tho’, though,
+thoo, thou; you (God),
+thoom, thumb,
+thoosan’, thousand,
+thouch, though,
+thoucht, thought,
+thrapple, windpipe; neck,
+thraw, throw; turn; twist,
+thraw one’s lug, twist one’s ear; punish,
+three-fauld, threefold; three times,
+threep, argue obstinately, also maintain by dint of assertion,
+thro’t, throat,
+throt-ro’d, throat, i.e. be drunk,
+throu’, through,
+thunner, thunder,
+tice, entice; coax,
+’tice, entice; coax,
+till, to; till; until; about; at; before,
+ting-a-ling, sound of a small bell,
+tint, lost; got lost,
+tiret, tired,
+’tis, it is,
+tither, the other,
+tod, fox,
+toom, empty; unload,
+toom-heidit, empty headed,
+toon, town; village,
+tow, rope; string,
+trail, drag forcibly; haul along,
+traivel, travel,
+trible, trouble,
+trifflin’, trifling,
+trim’le, tremble,
+trimmin’, beating; scolding,
+troth, truth; indeed, used as an exclamation,
+trowth, truth,
+trustit, trusted,
+’ts, its,
+tuck, beat (drum),
+tuik, took,
+tum’ler, tumbler; glass (of whisky),
+turnt, turned,
+twa, two; a few,
+’twar, it were,
+’twarna, it were not,
+’twas, it was,
+twise, twice,
+twistet, twisted,
+tyauve, strive; struggle,
+tyne, lose; get lost,
+ugsome, disgusting; frightful; ghastly,
+umbrell, umbrella,
+unco, unknown; odd; strange; uncouth, also very great,
+un’er, under,
+un’erstan’, understand,
+up the stair, upstairs,
+upliftit, uplifted,
+upo’, upon; on to; at,
+up-road, road (to heaven),
+vailue, value,
+vainity, vanity,
+verra, very; true; real,
+v’ice, voice,
+vreet, write,
+vroucht, wrought; worked,
+wa’, wall, also way
+wad, would,
+wadna, would not,
+wae, woe; sad; sorrowful,
+waggin’, wagging; nodding,
+waitit, waited,
+walcome, welcome,
+w’alth, wealth; abundance,
+wan, reached; gained; got,
+wantin’, wanting; lacking; without; in want of,
+wantit, wanted,
+war, were,
+wark, work; labour,
+warl’, world; worldly goods, also a large number,
+warl’s gear, worldly substance,
+warna, were not,
+warran’, warrant; guarantee,
+warrin’, warring,
+warst, worst,
+warstle, wrestle,
+warstlin’, wrestling,
+wa’s, walls, also ways,
+washen, washed,
+wasna, was not,
+wasterfu’, wasteful; extravagant,
+water-brose, oatmeal stirred into boiling, water until thick,
+wather, weather,
+watter, water,
+waur, worse, also spend money
+wee, small; little; bit, also short time; while,
+weel, well; fine,
+weel-behaved, well-behaved,
+weet, wet; dew; rain,
+weetin’, wetting; getting wet,
+weicht, weight,
+weir, wear, also hedge; fence; enclosure,
+weird, doom; disaster,
+weyve, weave; knit,
+weyver, weaver; knitter, also knitter of stockings; spider,
+wha, who,
+whae’er, whoever,
+wha’ll, who will,
+whan, when,
+wharfor, what for; why; for what reason,
+wha’s, who is, also whose
+What ca’ they ye?, What’s your name?,
+What for no?, Why not?,
+What for?, Why?,
+whaten, (on; by) what; what kind of,
+what-for, why; reason, also punishment; retribution,
+whaul, whale,
+whaur, where,
+whause, whose,
+wheel, eddy; pool; deep still part of the river,
+wheen, little; few; number; quantity,
+whiles, sometimes; at times; now and then,
+whilk, which,
+Whisht!, Quiet! Silence! Hush!,
+whumled, whelmed; overwhelmed; upset,
+whup, whip,
+whusky, whisky,
+whustle, whistle,
+wi’, with,
+wice-like, seem wise,
+wicket, back-door of a barn,
+wickit, wicked,
+wifie, little woman, term of endearment,
+willin’est, willingest,
+win, reach; gain; get,
+win’, wind,
+win’le strae, straw or grass dried on its root, weak; unhealthy,
+winna, will not,
+wins, reaches; gains; gets,
+winsome, large; comely,
+wi’oot, without,
+wires, knitting needles,
+wis, was,
+wither, weather,
+won’er, wonder; marvel,
+won’erfu’, wonderful; great; large,
+won’erin’, wondering,
+worset, woollen fabric; wool; worsted,
+worum, worm,
+wrang, wrong; injured,
+writch, rich,
+wuddie, gallows, also willow,
+wuds, woods; forests,
+wull, will; wish; desire, also astray; stray; wild,
+wullin’, willing; wanting,
+wuman, woman,
+wunna, would not; will not,
+wur, lay out,
+wuss, wish,
+wut, wit; intelligence; sense,
+w’y, way,
+wydin’, wading,
+wyte, blame; reproach,
+yaird, yard,
+ye, you; yourself,
+year, years, also year,
+ye’ll, you will,
+yer, your,
+yer lane, on your own,
+ye’re, you are,
+yersel’, yourself,
+ye ’t, it to you,
+yett, gate,
+yeuks, itches,
+yeuky, itchy,
+ye’ve, you have,
+yon, that; those; that there,
+yon’er, yonder; over there; in that place,
+yon’ll, that will; that (thing) there will,
+yon’s, that is; that (thing) there is,
+yoong, young,
+
+
+
+
+*** END OF THE PROJECT GUTENBERG EBOOK SIR GIBBIE ***
+
+
+Updated editions will replace the previous one—the old editions will
+be renamed.
+
+Creating the works from print editions not protected by U.S. copyright
+law means that no one owns a United States copyright in these works,
+so the Foundation (and you!) can copy and distribute it in the United
+States without permission and without paying copyright
+royalties. Special rules, set forth in the General Terms of Use part
+of this license, apply to copying and distributing Project
+Gutenberg™ electronic works to protect the PROJECT GUTENBERG™
+concept and trademark. Project Gutenberg is a registered trademark,
+and may not be used if you charge for an eBook, except by following
+the terms of the trademark license, including paying royalties for use
+of the Project Gutenberg trademark. If you do not charge anything for
+copies of this eBook, complying with the trademark license is very
+easy. You may use this eBook for nearly any purpose such as creation
+of derivative works, reports, performances and research. Project
+Gutenberg eBooks may be modified and printed and given away—you may
+do practically ANYTHING in the United States with eBooks not protected
+by U.S. copyright law. Redistribution is subject to the trademark
+license, especially commercial redistribution.
+
+START: FULL LICENSE
+THE FULL PROJECT GUTENBERG LICENSE
+PLEASE READ THIS BEFORE YOU DISTRIBUTE OR USE THIS WORK
+
+To protect the Project Gutenberg™ mission of promoting the free
+distribution of electronic works, by using or distributing this work
+(or any other work associated in any way with the phrase “Project
+Gutenberg”), you agree to comply with all the terms of the Full
+Project Gutenberg™ License available with this file or online at
+www.gutenberg.org/license.
+
+Section 1. General Terms of Use and Redistributing Project Gutenberg™
+electronic works
+
+1.A. By reading or using any part of this Project Gutenberg™
+electronic work, you indicate that you have read, understand, agree to
+and accept all the terms of this license and intellectual property
+(trademark/copyright) agreement. If you do not agree to abide by all
+the terms of this agreement, you must cease using and return or
+destroy all copies of Project Gutenberg™ electronic works in your
+possession. If you paid a fee for obtaining a copy of or access to a
+Project Gutenberg™ electronic work and you do not agree to be bound
+by the terms of this agreement, you may obtain a refund from the person
+or entity to whom you paid the fee as set forth in paragraph 1.E.8.
+
+1.B. “Project Gutenberg” is a registered trademark. It may only be
+used on or associated in any way with an electronic work by people who
+agree to be bound by the terms of this agreement. There are a few
+things that you can do with most Project Gutenberg™ electronic works
+even without complying with the full terms of this agreement. See
+paragraph 1.C below. There are a lot of things you can do with Project
+Gutenberg™ electronic works if you follow the terms of this
+agreement and help preserve free future access to Project Gutenberg™
+electronic works. See paragraph 1.E below.
+
+1.C. The Project Gutenberg Literary Archive Foundation (“the
+Foundation” or PGLAF), owns a compilation copyright in the collection
+of Project Gutenberg™ electronic works. Nearly all the individual
+works in the collection are in the public domain in the United
+States. If an individual work is unprotected by copyright law in the
+United States and you are located in the United States, we do not
+claim a right to prevent you from copying, distributing, performing,
+displaying or creating derivative works based on the work as long as
+all references to Project Gutenberg are removed. Of course, we hope
+that you will support the Project Gutenberg™ mission of promoting
+free access to electronic works by freely sharing Project Gutenberg™
+works in compliance with the terms of this agreement for keeping the
+Project Gutenberg™ name associated with the work. You can easily
+comply with the terms of this agreement by keeping this work in the
+same format with its attached full Project Gutenberg™ License when
+you share it without charge with others.
+
+1.D. The copyright laws of the place where you are located also govern
+what you can do with this work. Copyright laws in most countries are
+in a constant state of change. If you are outside the United States,
+check the laws of your country in addition to the terms of this
+agreement before downloading, copying, displaying, performing,
+distributing or creating derivative works based on this work or any
+other Project Gutenberg™ work. The Foundation makes no
+representations concerning the copyright status of any work in any
+country other than the United States.
+
+1.E. Unless you have removed all references to Project Gutenberg:
+
+1.E.1. The following sentence, with active links to, or other
+immediate access to, the full Project Gutenberg™ License must appear
+prominently whenever any copy of a Project Gutenberg™ work (any work
+on which the phrase “Project Gutenberg” appears, or with which the
+phrase “Project Gutenberg” is associated) is accessed, displayed,
+performed, viewed, copied or distributed:
+
+    This eBook is for the use of anyone anywhere in the United States and most
+    other parts of the world at no cost and with almost no restrictions
+    whatsoever. You may copy it, give it away or re-use it under the terms
+    of the Project Gutenberg License included with this eBook or online
+    at www.gutenberg.org. If you
+    are not located in the United States, you will have to check the laws
+    of the country where you are located before using this eBook.
+  
+1.E.2. If an individual Project Gutenberg™ electronic work is
+derived from texts not protected by U.S. copyright law (does not
+contain a notice indicating that it is posted with permission of the
+copyright holder), the work can be copied and distributed to anyone in
+the United States without paying any fees or charges. If you are
+redistributing or providing access to a work with the phrase “Project
+Gutenberg” associated with or appearing on the work, you must comply
+either with the requirements of paragraphs 1.E.1 through 1.E.7 or
+obtain permission for the use of the work and the Project Gutenberg™
+trademark as set forth in paragraphs 1.E.8 or 1.E.9.
+
+1.E.3. If an individual Project Gutenberg™ electronic work is posted
+with the permission of the copyright holder, your use and distribution
+must comply with both paragraphs 1.E.1 through 1.E.7 and any
+additional terms imposed by the copyright holder. Additional terms
+will be linked to the Project Gutenberg™ License for all works
+posted with the permission of the copyright holder found at the
+beginning of this work.
+
+1.E.4. Do not unlink or detach or remove the full Project Gutenberg™
+License terms from this work, or any files containing a part of this
+work or any other work associated with Project Gutenberg™.
+
+1.E.5. Do not copy, display, perform, distribute or redistribute this
+electronic work, or any part of this electronic work, without
+prominently displaying the sentence set forth in paragraph 1.E.1 with
+active links or immediate access to the full terms of the Project
+Gutenberg™ License.
+
+1.E.6. You may convert to and distribute this work in any binary,
+compressed, marked up, nonproprietary or proprietary form, including
+any word processing or hypertext form. However, if you provide access
+to or distribute copies of a Project Gutenberg™ work in a format
+other than “Plain Vanilla ASCII” or other format used in the official
+version posted on the official Project Gutenberg™ website
+(www.gutenberg.org), you must, at no additional cost, fee or expense
+to the user, provide a copy, a means of exporting a copy, or a means
+of obtaining a copy upon request, of the work in its original “Plain
+Vanilla ASCII” or other form. Any alternate format must include the
+full Project Gutenberg™ License as specified in paragraph 1.E.1.
+
+1.E.7. Do not charge a fee for access to, viewing, displaying,
+performing, copying or distributing any Project Gutenberg™ works
+unless you comply with paragraph 1.E.8 or 1.E.9.
+
+1.E.8. You may charge a reasonable fee for copies of or providing
+access to or distributing Project Gutenberg™ electronic works
+provided that:
+
+• You pay a royalty fee of 20% of the gross profits you derive from
+        the use of Project Gutenberg™ works calculated using the method
+        you already use to calculate your applicable taxes. The fee is owed
+        to the owner of the Project Gutenberg™ trademark, but he has
+        agreed to donate royalties under this paragraph to the Project
+        Gutenberg Literary Archive Foundation. Royalty payments must be paid
+        within 60 days following each date on which you prepare (or are
+        legally required to prepare) your periodic tax returns. Royalty
+        payments should be clearly marked as such and sent to the Project
+        Gutenberg Literary Archive Foundation at the address specified in
+        Section 4, “Information about donations to the Project Gutenberg
+        Literary Archive Foundation.”
+    
+• You provide a full refund of any money paid by a user who notifies
+        you in writing (or by e-mail) within 30 days of receipt that s/he
+        does not agree to the terms of the full Project Gutenberg™
+        License. You must require such a user to return or destroy all
+        copies of the works possessed in a physical medium and discontinue
+        all use of and all access to other copies of Project Gutenberg™
+        works.
+    
+• You provide, in accordance with paragraph 1.F.3, a full refund of
+        any money paid for a work or a replacement copy, if a defect in the
+        electronic work is discovered and reported to you within 90 days of
+        receipt of the work.
+    
+• You comply with all other terms of this agreement for free
+        distribution of Project Gutenberg™ works.
+    
+
+1.E.9. If you wish to charge a fee or distribute a Project
+Gutenberg™ electronic work or group of works on different terms than
+are set forth in this agreement, you must obtain permission in writing
+from the Project Gutenberg Literary Archive Foundation, the manager of
+the Project Gutenberg™ trademark. Contact the Foundation as set
+forth in Section 3 below.
+
+1.F.
+
+1.F.1. Project Gutenberg volunteers and employees expend considerable
+effort to identify, do copyright research on, transcribe and proofread
+works not protected by U.S. copyright law in creating the Project
+Gutenberg™ collection. Despite these efforts, Project Gutenberg™
+electronic works, and the medium on which they may be stored, may
+contain “Defects,” such as, but not limited to, incomplete, inaccurate
+or corrupt data, transcription errors, a copyright or other
+intellectual property infringement, a defective or damaged disk or
+other medium, a computer virus, or computer codes that damage or
+cannot be read by your equipment.
+
+1.F.2. LIMITED WARRANTY, DISCLAIMER OF DAMAGES - Except for the “Right
+of Replacement or Refund” described in paragraph 1.F.3, the Project
+Gutenberg Literary Archive Foundation, the owner of the Project
+Gutenberg™ trademark, and any other party distributing a Project
+Gutenberg™ electronic work under this agreement, disclaim all
+liability to you for damages, costs and expenses, including legal
+fees. YOU AGREE THAT YOU HAVE NO REMEDIES FOR NEGLIGENCE, STRICT
+LIABILITY, BREACH OF WARRANTY OR BREACH OF CONTRACT EXCEPT THOSE
+PROVIDED IN PARAGRAPH 1.F.3. YOU AGREE THAT THE FOUNDATION, THE
+TRADEMARK OWNER, AND ANY DISTRIBUTOR UNDER THIS AGREEMENT WILL NOT BE
+LIABLE TO YOU FOR ACTUAL, DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR
+INCIDENTAL DAMAGES EVEN IF YOU GIVE NOTICE OF THE POSSIBILITY OF SUCH
+DAMAGE.
+
+1.F.3. LIMITED RIGHT OF REPLACEMENT OR REFUND - If you discover a
+defect in this electronic work within 90 days of receiving it, you can
+receive a refund of the money (if any) you paid for it by sending a
+written explanation to the person you received the work from. If you
+received the work on a physical medium, you must return the medium
+with your written explanation. The person or entity that provided you
+with the defective work may elect to provide a replacement copy in
+lieu of a refund. If you received the work electronically, the person
+or entity providing it to you may choose to give you a second
+opportunity to receive the work electronically in lieu of a refund. If
+the second copy is also defective, you may demand a refund in writing
+without further opportunities to fix the problem.
+
+1.F.4. Except for the limited right of replacement or refund set forth
+in paragraph 1.F.3, this work is provided to you ‘AS-IS’, WITH NO
+OTHER WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PURPOSE.
+
+1.F.5. Some states do not allow disclaimers of certain implied
+warranties or the exclusion or limitation of certain types of
+damages. If any disclaimer or limitation set forth in this agreement
+violates the law of the state applicable to this agreement, the
+agreement shall be interpreted to make the maximum disclaimer or
+limitation permitted by the applicable state law. The invalidity or
+unenforceability of any provision of this agreement shall not void the
+remaining provisions.
+
+1.F.6. INDEMNITY - You agree to indemnify and hold the Foundation, the
+trademark owner, any agent or employee of the Foundation, anyone
+providing copies of Project Gutenberg™ electronic works in
+accordance with this agreement, and any volunteers associated with the
+production, promotion and distribution of Project Gutenberg™
+electronic works, harmless from all liability, costs and expenses,
+including legal fees, that arise directly or indirectly from any of
+the following which you do or cause to occur: (a) distribution of this
+or any Project Gutenberg™ work, (b) alteration, modification, or
+additions or deletions to any Project Gutenberg™ work, and (c) any
+Defect you cause.
+
+Section 2. Information about the Mission of Project Gutenberg™
+
+Project Gutenberg™ is synonymous with the free distribution of
+electronic works in formats readable by the widest variety of
+computers including obsolete, old, middle-aged and new computers. It
+exists because of the efforts of hundreds of volunteers and donations
+from people in all walks of life.
+
+Volunteers and financial support to provide volunteers with the
+assistance they need are critical to reaching Project Gutenberg™’s
+goals and ensuring that the Project Gutenberg™ collection will
+remain freely available for generations to come. In 2001, the Project
+Gutenberg Literary Archive Foundation was created to provide a secure
+and permanent future for Project Gutenberg™ and future
+generations. To learn more about the Project Gutenberg Literary
+Archive Foundation and how your efforts and donations can help, see
+Sections 3 and 4 and the Foundation information page at www.gutenberg.org.
+
+Section 3. Information about the Project Gutenberg Literary Archive Foundation
+
+The Project Gutenberg Literary Archive Foundation is a non-profit
+501(c)(3) educational corporation organized under the laws of the
+state of Mississippi and granted tax exempt status by the Internal
+Revenue Service. The Foundation’s EIN or federal tax identification
+number is 64-6221541. Contributions to the Project Gutenberg Literary
+Archive Foundation are tax deductible to the full extent permitted by
+U.S. federal laws and your state’s laws.
+
+The Foundation’s business office is located at 809 North 1500 West,
+Salt Lake City, UT 84116, (801) 596-1887. Email contact links and up
+to date contact information can be found at the Foundation’s website
+and official page at www.gutenberg.org/contact
+
+Section 4. Information about Donations to the Project Gutenberg
+Literary Archive Foundation
+
+Project Gutenberg™ depends upon and cannot survive without widespread
+public support and donations to carry out its mission of
+increasing the number of public domain and licensed works that can be
+freely distributed in machine-readable form accessible by the widest
+array of equipment including outdated equipment. Many small donations
+($1 to $5,000) are particularly important to maintaining tax exempt
+status with the IRS.
+
+The Foundation is committed to complying with the laws regulating
+charities and charitable donations in all 50 states of the United
+States. Compliance requirements are not uniform and it takes a
+considerable effort, much paperwork and many fees to meet and keep up
+with these requirements. We do not solicit donations in locations
+where we have not received written confirmation of compliance. To SEND
+DONATIONS or determine the status of compliance for any particular state
+visit www.gutenberg.org/donate.
+
+While we cannot and do not solicit contributions from states where we
+have not met the solicitation requirements, we know of no prohibition
+against accepting unsolicited donations from donors in such states who
+approach us with offers to donate.
+
+International donations are gratefully accepted, but we cannot make
+any statements concerning tax treatment of donations received from
+outside the United States. U.S. laws alone swamp our small staff.
+
+Please check the Project Gutenberg web pages for current donation
+methods and addresses. Donations are accepted in a number of other
+ways including checks, online payments and credit card donations. To
+donate, please visit: www.gutenberg.org/donate.
+
+Section 5. General Information About Project Gutenberg™ electronic works
+
+Professor Michael S. Hart was the originator of the Project
+Gutenberg™ concept of a library of electronic works that could be
+freely shared with anyone. For forty years, he produced and
+distributed Project Gutenberg™ eBooks with only a loose network of
+volunteer support.
+
+Project Gutenberg™ eBooks are often created from several printed
+editions, all of which are confirmed as not protected by copyright in
+the U.S. unless a copyright notice is included. Thus, we do not
+necessarily keep eBooks in compliance with any particular paper
+edition.
+
+Most people start at our website which has the main PG search
+facility: www.gutenberg.org.
+
+This website includes information about Project Gutenberg™,
+including how to make donations to the Project Gutenberg Literary
+Archive Foundation, how to help produce our new eBooks, and how to
+subscribe to our email newsletter to hear about new eBooks.
+
+
+
