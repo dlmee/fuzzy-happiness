@@ -10,9 +10,9 @@ import numpy as np
 from Levenshtein import distance as lstn
 
 class Tiztikz:
-    def __init__(self, corpus, allgrams = None, stems=None):
-        tokens = self.read_dev_txt(corpus)
-        self.allgrams = self.morph_merge(tokens, allgrams=allgrams, stems=stems)
+    def __init__(self, corpus, grammar = None, allgrams = None, stems=None, entities=None):
+        tokens, counts = self.read_dev_txt(corpus)
+        self.allgrams = self.morph_merge(tokens, counts, grammar=grammar, allgrams=allgrams, stems=stems, entities=entities)
         with open("morphemic_breakdown.json", "w") as outj:
             json.dump(self.allgrams, outj, indent=4, ensure_ascii=False)
         
@@ -37,123 +37,146 @@ class Tiztikz:
         # Process each line
         lines = [[re.sub(r"[^\u0900-\u097F]", "", word) for word in re.split(" |-|\n|—", line)] for line in lines]
         # Filter out empty words and words containing Roman characters
-        lines = [[word for word in line if word and re.fullmatch(devanagari_pattern, word)] for line in lines]
-        return lines
-
-
-    def morph_merge(self, tokens, allgrams=None, stems=None):
-        max_length = 0
-        cut_off = 14
-        longest_word = ""
-        too_long = []
-        for line in tokens:
-            marked = []
+        counts = {'**total**': 0}
+        for line in lines:
             for word in line:
-                if len(word) > max_length:
-                    max_length = len(word)
-                    longest_word = word
-                if len(word) >= cut_off:
-                    marked.append(word)
-            if marked:
-                for word in marked:
-                    line.remove(word)
-                    too_long = too_long + marked
-        if too_long:
-            with open("over_length.json", "w") as outj:
-                json.dump(list(set(too_long)), outj, indent=4, ensure_ascii=False)
-        print(f"the longest word is: {max_length}, {longest_word}")
+                if not word: continue
+                if word not in counts:
+                    counts[word] = 1
+                    counts['**total**'] +=1
+                else:
+                    counts[word] += 1
+                    counts['**total**'] +=1
+        for k,v in counts.items():
+            if k != '**total**':
+                counts[k] = v/counts['**total**']
+        counts = sorted(list(counts.items()), key = lambda x:x[1], reverse = True)
+        counts = {word[0]:word[1] for word in counts}
+        lines = set([word for line in lines for word in line if word and re.fullmatch(devanagari_pattern, word)])
+        return list(lines), counts
+
+
+    def morph_merge(self, tokens, counts, grammar=None, allgrams=None, stems=None, entities=None):
         if allgrams:
             with open(allgrams, 'r') as inj:
                 allgrams = json.load(inj)
         else:
-            allgrams = self._first_pass(tokens)
+            allgrams = self._first_pass(tokens, counts, stems, entities)
             allgrams = self._second_pass(allgrams, tokens)
             with open("allgrams.json", 'w') as outj:
                 json.dump(allgrams, outj, indent=4, ensure_ascii=False)
             
-        allgrams = self._third_pass(allgrams, tokens, stems)
+        allgrams = self._third_pass(allgrams, tokens, stems, grammar=grammar)
         return allgrams
 
-    def _first_pass(self, tokens):
+    def _first_pass(self, tokens, counts, stems, entities):
         #Need to collect the types of words, to know what we have to be able to build. 
         allgrams = {'**word**': {'**total**': {}}}
-        for line in tqdm(tokens, desc="First Pass"):
-            for word in line:
-                thisgrams = self._find_grams(word)
-                for n, grams in thisgrams.items():
-                    if n not in allgrams:
-                        allgrams[n] = {"**total**": 0, '**threshold**': 0}
-                    for gram in grams:
-                        allgrams[n]["**total**"] += 1
-                        if gram not in allgrams[n]:
-                            allgrams[n][gram] = {'count': 1, 'prep': 0, 'sufp': 0, 'word':0, 'before': {'#':0}, 'after': {'#':0}, 'coverage': [word]}
-                        else:
-                            allgrams[n][gram]['count'] += 1
-                            if word not in allgrams[n][gram]['coverage']:
-                                allgrams[n][gram]['coverage'].append(word)
+        if stems:
+            stem_dict = self.side_hustle(tokens, stems, entities, counts)
+            print("and done!")
+            for k,v in tqdm(stem_dict.items(), desc="Adding stems to allgrams"):
+                if k == 'non-fitting':
+                    for word in v:
+                        allgrams = self._add_grams(word, allgrams)
+                else:
+                    for word in v:
+                        chunks = word.split(k)
+                        for chunk in chunks:
+                            allgrams = self._add_grams(chunk, allgrams)
+                        allgrams = self._add_grams(word, allgrams, stem=True)
+
+        else:
+            for word in tqdm(tokens, desc='First Pass'):
+                self._add_grams(word, allgrams)
+                
         return allgrams
+
+    def _add_grams(self, word, allgrams, stem=False):
+        if stem:
+            thisgrams = {len(word):[word]}
+        else:
+            thisgrams = self._find_grams(word)
+        for n, grams in thisgrams.items():
+            if n not in allgrams:
+                allgrams[n] = {"**total**": 0, '**threshold**': 0}
+            for gram in grams:
+                allgrams[n]["**total**"] += 1
+                if gram not in allgrams[n]:
+                    allgrams[n][gram] = {'count': 1, 'prep': 0, 'sufp': 0, 'dictionary':stem, 'before': {'#':0}, 'after': {'#':0}, 'coverage': [word]}
+                else:
+                    allgrams[n][gram]['count'] += 1
+                    if word not in allgrams[n][gram]['coverage']:
+                        allgrams[n][gram]['coverage'].append(word)
+        return allgrams
+
 
     def _second_pass(self, allgrams, tokens):
-        for line in tqdm(tokens, desc="Second pass"):
-            for word in line:
-                if not word: continue
-                possibles = self.generate_splits_iterative(word)
-                # = self.generate_splits_components(word)
-                for stem, grams in possibles.items():
-                    n = len(stem)
-                    for key in ['before', 'after']:
-                        for gram in list(grams[key]):
-                            if gram not in allgrams[n][stem][key]:
-                                allgrams[n][stem][key][gram] = 1
-                            else:
-                                allgrams[n][stem][key][gram] +=1
+        for word in tqdm(tokens, desc="Second pass"):
+            if not word: continue
+            if len(word) > 14: continue
+            possibles = self.generate_splits_iterative(word)
+            # = self.generate_splits_components(word)
+            for stem, grams in possibles.items():
+                n = len(stem)
+                if stem not in allgrams[n]: continue
+                for key in ['before', 'after']:
+                    for gram in list(grams[key]):
+                        if gram not in allgrams[n][stem][key]:
+                            allgrams[n][stem][key][gram] = 1
+                        else:
+                            allgrams[n][stem][key][gram] +=1
 
-                    allgrams[n][stem]['prep'] = allgrams[n][stem]['before']['#'] / (sum([count for key, count in allgrams[n][stem]['before'].items() if key != '#']) +1)
-                    allgrams[n][stem]['sufp'] = allgrams[n][stem]['after']['#'] / (sum([count for key, count in allgrams[n][stem]['after'].items() if key != '#']) + 1)
+                allgrams[n][stem]['prep'] = allgrams[n][stem]['before']['#'] / (sum([count for key, count in allgrams[n][stem]['before'].items() if key != '#']) +1)
+                allgrams[n][stem]['sufp'] = allgrams[n][stem]['after']['#'] / (sum([count for key, count in allgrams[n][stem]['after'].items() if key != '#']) + 1)
         return allgrams
 
-    def _third_pass(self, allgrams, tokens, stems=None):
+    def _third_pass(self, allgrams, tokens, stems = None, grammar = None):
         allgrams, stems = self.transform_allgrams(allgrams, stems)
-        
-        tokens = set(word for line in tokens for word in line)
-        tokens = list(tokens)
-        self.side_hustle(tokens, stems)
+        #self.side_hustle(tokens, stems)
         #Here is where I need to start building rules
-        grammar = {
-    'probability': float('-inf'),
-    'cost': float('inf'),
-    'stems': stems,
-    'prefixes':[('NULL', 0)],
-    'suffixes':[('NULL', 0)],
-    'combinations': []
-}
+        if grammar:
+            with open(grammar, 'r') as inj:
+                grammar = json.load(inj)
+                efficiency = grammar['cost']
+                probability = grammar['probability']
+                grammars = [grammar]
+        else:
+            if not stems:
+                stems =[(k,0) for k,v in allgrams.items() if v['stems'] == 0 and len(k) > 2]
+            else:
+                stems =[pair for pair in stems if len(pair[0]) > 1]
+            grammar = {
+        'probability': float('-inf'),
+        'cost': float('inf'),
+        'stems': stems,
+        'prefixes':[('NULL', 0)] + allgrams['prefixes'][100:500],
+        'suffixes':[('NULL', 0)] + allgrams['suffixes'][100:500],
+        'combinations': []
+    }
 
-        #let's initialized an unprobable and expensive grammar, every word and no affixes or stems!
-        grammars = [self.build_grammar_stem(grammar, tokens, allgrams)]
-        efficiency = grammar['cost']
-        probability = float('-inf')
+            #let's initialized an unprobable and expensive grammar, every word and no affixes or stems!
+            grammars = [self.build_grammar_stem(grammar, tokens, allgrams)]
+            efficiency = grammar['cost']
+            probability = float('-inf')
         c_improved = True
-        t = 500
+        t = 100
         counter = 0
-        growing = ['grow']
+        growing = ['grow','shrink', 'mutate']
         while t > 10:
-            counter += 1
-            if counter % 3 == 0:
-                for i, g in enumerate(grammars):
-                    with open(f"{counter}_{i}_intermediate.json", "w") as outj:
-                        json.dump(g, outj, indent=4, ensure_ascii=False)
-            print(f"The length of grammars is {len(grammars)}")
-            if len(grammars) > 2:
-                grammars = sorted(grammars, key= lambda x:x['cost'], reverse=True)
-                grammars = grammars[:2]
-            newgrammars = self.ratchet_grammar(grammars, tokens, allgrams, temp=random.randint(1,t), growing=growing, paths=2)
+            grammars = sorted(grammars, key= lambda x:x['cost'])
+            grammars = grammars[:1]
+            with open(f"new_best_grammar.json", "w") as outj:
+                json.dump(grammars[0], outj, indent=4, ensure_ascii=False)
+            newgrammars, allgrams = self.ratchet_grammar(grammars, tokens, allgrams, temp=random.randint(1,t), growing=growing, paths=3)
+            print(f"The length of allgrams stems is: {len(allgrams['stems'])}. The length of allgrams prefixes is: {len(allgrams['prefixes'])}. The length of allgrams suffixes is: {len(allgrams['suffixes'])}")
             previous_grammars = grammars
             grammars = []
             c_improved = False
             p_improved = False
             for k,v in newgrammars.items():
                 print(f"The cost of {k} = {v['cost']}, prob = {v['probability']}")
-                if v['cost'] > efficiency:
+                if v['cost'] <= efficiency:
                     efficiency = v['cost']
                     grammars.append(v)
                     c_improved = True
@@ -167,87 +190,28 @@ class Tiztikz:
                 t -= 20
                 growing.append(random.choice(['shrink','mutate']))
                 grammars.append(previous_grammars[0])
-            if not p_improved:
+            """if not p_improved:
                 t -= 20
                 growing.append(random.choice(['shrink','mutate']))
-                grammars.append(previous_grammars[-1])
+                grammars.append(previous_grammars[-1])"""
             print(f"Cost is {c_improved}, and Probability is {p_improved}")
         return grammars[0]
 
-                
-    def build_grammar_affixes(self, grammar, tokens, allgrams):
-        #Need to make sure that our rules are building correctly, but we now have the probabilities squared away!
-        grammar['combinations'] = []
-        for word in tqdm(tokens, desc="building grammar"):
-            decomposition = self.recursive_decompose(word, [pre for pre, prob in grammar['prefixes']], [stem for stem, prob in grammar['stems']], [suf for suf, prob in grammar['suffixes']])
-            if decomposition:
-                breakdown = [(el, allgrams[str(len(el))][el][k]) for k,v in decomposition.items() for el in v]
-                word = '-'.join([br[0] for br in breakdown])
-                prob = sum([br[1] for br in breakdown])/len(breakdown)
-                decomposition['stems'] = decomposition['stems'][0]
-                grammar = self.shift(grammar, decomposition) #This makes used rules less likely to be dropped. 
-                ppool = [p for p in decomposition['prefixes']]
-                spool = [s for s in decomposition['suffixes']]
-                if grammar['combinations']:
-                    for prefix in decomposition['prefixes']:
-                        for affixation in grammar['combinations']:
-                            if affixation['prefixes']:
-                                if prefix == affixation['prefixes']:
-                                    affixation['stems'].append(decomposition['stems'])
-                                    affixation['generates'].append((prefix + decomposition['stems'], word))
-                                    affixation['probability'].append(prob)
-                                    ppool.remove(prefix)
-                                    break
-                    for suffix in decomposition['suffixes']:
-                        for affixation in grammar['combinations']:
-                            if affixation['suffixes']:
-                                if suffix in affixation['suffixes']:
-                                    affixation['stems'].append(decomposition['stems'])
-                                    affixation['generates'].append((decomposition['stems'] + suffix, word))
-                                    affixation['probability'].append(prob)
-                                    spool.remove(suffix)
-                                    break
-                for p in ppool:
-                    #then we don't have a rule that matches this. We need to make a rule. 
-                    grammar['combinations'].append({
-                        'stems': [decomposition['stems']],
-                        'prefixes': p,
-                        'suffixes': None,
-                        'probability': [prob], #we'll need to build a custom function here :D 
-                        'generates': [(p + decomposition['stems'], word)]
-                    })
-                for s in spool:
-                    grammar['combinations'].append({
-                        'stems': [decomposition['stems']],
-                        'prefixes': None,
-                        'suffixes': s,
-                        'probability': [prob], #we'll need to build a custom function here :D 
-                        'generates': [(decomposition['stems'] + s, word)]
-                    })
-            else:
-                grammar['combinations'].append(
-                    {
-            'stems': [word],
-            'prefixes': None,
-            'suffixes': None,
-            'probability': [allgrams[str(len(word))][word]['stems']],
-            'generates': [word]
-        })
-        grammar['probability'] = sum(p for c in grammar['combinations'] for p in c['probability'])
-        grammar['cost'] = sum([len(v['generates']) for v in grammar['combinations']])/len(grammar['combinations'])
-        grammar['combinations'] = sorted(grammar['combinations'], key = lambda x:len(x['generates']), reverse=True)
-        return grammar
-    
     
     def build_grammar_stem(self, grammar, tokens, allgrams):
         #Need to make sure that our rules are building correctly, but we now have the probabilities squared away!
         grammar['combinations'] = []
         for word in tqdm(tokens, desc="building grammar"):
+            if str(len(word)) in allgrams:
+                if word not in allgrams[str(len(word))]:
+                    continue
             decomposition = self.recursive_decompose(word, [pre for pre, prob in grammar['prefixes']], [stem for stem, prob in grammar['stems']], [suf for suf, prob in grammar['suffixes']])
             if decomposition:
                 breakdown = [(el, allgrams[str(len(el))][el][k]) for k,v in decomposition.items() for el in v]
                 word = '-'.join([br[0] for br in breakdown])
                 prob = sum([br[1] for br in breakdown])/len(breakdown)
+                if prob == float('-inf'):
+                    prob = [-50]
                 #decomposition['stems'] = decomposition['stems']
                 grammar = self.shift(grammar, decomposition) #This makes used rules less likely to be dropped. 
                 stempool = [s for s in decomposition['stems']]
@@ -276,16 +240,21 @@ class Tiztikz:
                             'generates': [word]
                         })
             else:
+                if word in allgrams[str(len(word))]:
+                    probability = [allgrams[str(len(word))][word]['stems']]
+                else:
+                    probability = [-50]
                 grammar['combinations'].append(
                     {
             'stems': [word],
             'prefixes': None,
             'suffixes': None,
-            'probability': [allgrams[str(len(word))][word]['stems']],
+            'probability': probability,
             'generates': [word]
         })
         grammar['probability'] = sum(p for c in grammar['combinations'] for p in c['probability'])
-        grammar['cost'] = sum([len(v['generates']) for v in grammar['combinations']])/len(grammar['combinations'])
+        #grammar['cost'] = sum([len(v['generates']) for v in grammar['combinations']])/len(grammar['combinations'])
+        grammar['cost'] = sum([abs(len(v['generates']) - 25) for v in grammar['combinations']]) / len(grammar['combinations'])
         grammar['combinations'] = sorted(grammar['combinations'], key = lambda x:len(x['generates']), reverse=True)
         return grammar
     
@@ -313,20 +282,20 @@ class Tiztikz:
             #print(f"No decomposition found for '{target_word}' at depth {depth}")
             return None
 
-        for prefix in prefixes:
-            if target_word.startswith(prefix):
-                # Update target_word by removing the prefix
-                new_target = target_word[len(prefix):]
-                found_components['prefixes'].append(prefix)
-
-                # Recursive call
-                return self.recursive_decompose(new_target, prefixes, stems, suffixes, found_components, depth + 1)
-
         for suffix in suffixes:
             if target_word.endswith(suffix):
                 # Update target_word by removing the suffix
                 new_target = target_word[:-len(suffix)]
                 found_components['suffixes'].append(suffix)
+
+                # Recursive call
+                return self.recursive_decompose(new_target, prefixes, stems, suffixes, found_components, depth + 1)
+        
+        for prefix in prefixes:
+            if target_word.startswith(prefix):
+                # Update target_word by removing the prefix
+                new_target = target_word[len(prefix):]
+                found_components['prefixes'].append(prefix)
 
                 # Recursive call
                 return self.recursive_decompose(new_target, prefixes, stems, suffixes, found_components, depth + 1)
@@ -345,82 +314,91 @@ class Tiztikz:
         def mutate(mutation, allgrams, targets, temp):
             for k,v in targets.items():
                 if len(mutation[k]) < v: continue
+                average = mutation['cost']
                 for _ in range(v):
-                    combo = random.choice(mutation[k])
-                    if combo[1] == 0: continue #This is to prevent leaking dictionary stems.
-                    combinations = [pair for pair in allgrams[k] if lstn(combo[0],pair[0]) <= 2 and pair[1] > combo[1]]
-                    if combinations:
-                        replacement = random.choice(combinations)
-                        mutation[k].remove(combo)
-                        mutation[k].append(replacement)
-                    if k in ['prefixes', 'suffixes']:
-                        if ('NULL', 0) not in mutation[k]:
-                            mutation[k].append(('NULL',0))
+                    element = random.choice(mutation[k])
+                    if element[1] == 0: continue #This is to prevent leaking dictionary stems.
+                    if k == 'stems':
+                        count = sum([len(v2['generates']) for v2 in mutation['combinations'] if element[0] in v2[k]])
+                    else:
+                        count = sum([len(v2['generates']) for v2 in mutation['combinations'] if element[0] == v2[k]])
+                    if count > average:
+                        combinations = [pair for pair in allgrams[k] if lstn(element[0],pair[0]) <= 2 and pair[1] > element[1]]
+                        if combinations:
+                            replacement = random.choice(combinations)
+                            print(f"mutating {k}")
+                            mutation[k].remove(element)
+                            mutation[k].append(replacement)
+                        if k in ['prefixes', 'suffixes']:
+                            if ('NULL', 0) not in mutation[k]:
+                                mutation[k].append(('NULL',0))
             return mutation
         
         def grow(additive, allgrams, targets, temp):
             for k,v in targets.items():
-                for _ in range((v+1)*2):
-                    additive[k].append(self.suggest_element(additive[k], allgrams[k], temp, k))
-            return additive
+                for _ in range((v+1)):
+                    addition, allgrams = self.suggest_element(allgrams, additive[k], allgrams[k], temp, k)
+                    additive[k].append(addition)
+            return additive, allgrams
 
         def shrink(purge, allgrams, targets, temp):
             for k,v in targets.items():
-                if len(purge[k]) < v: continue
-                average = purge['cost'] * 2
-                for _ in range(v):
-                    element = random.choice(purge[k])
-                    if element[0] == 'NULL' or element[1] == 0: continue # prevent leaking dictionary stems
+                counter = 0
+                #if len(purge[k]) < v: continue
+                average = purge['cost'] + 15
+                """for _ in range(v):
+                    element = random.choice(purge[k])"""
+                for element in purge[k]:
+                    if element == 'NULL':
+                        raise
+                    if element[0] == 'NULL': continue
+                    if element[1] == 0 and len(element[0]) > 2: continue # prevent leaking dictionary stems
                     if k == 'stems':
                         count = sum([len(v2['generates']) for v2 in purge['combinations'] if element[0] in v2[k]])
                     else:
                         count = sum([len(v2['generates']) for v2 in purge['combinations'] if element[0] == v2[k]])
-                    if count < average:
+                    if count > average:
                         purge[k].remove(element)
+                        print(f"purging {k}")
+                        counter +=1
                     if k in ['prefixes', 'suffixes']:
                         if ('NULL', 0) not in purge[k]:
-                            purge[k].append('NULL')
+                            purge[k].append(('NULL', 0))
+                    if counter == v:
+                        break
             return purge
         
         pgrammars = {}
         for j, grammar in enumerate(grammars):
             for i in range(1, paths + 1):
-                if grammar['cost'] <= 1.25:
-                    growing = 'grow'
-                    targets = {'stems': 10*temp, 'prefixes':2*temp,'suffixes':2*temp}
-                else:
-                    growing = random.choice(growing)
-                    targets = {'stems': 2*temp, 'prefixes':1*temp,'suffixes':1*temp}
+                growing = ['grow', 'shrink', 'mutate'][i%3]
+                targets = {'stems': 2*temp, 'prefixes':1*temp,'suffixes':1*temp}
                 mypath = copy.deepcopy(grammar)
                 if growing == 'grow':
-                    mypath = grow(mypath, allgrams, targets, temp)
+                    mypath, allgrams = grow(mypath, allgrams, targets, temp)
                 elif growing == 'mutate':
                     mypath = mutate(mypath, allgrams, targets, temp)
                 elif growing == 'shrink':
                     mypath = shrink(mypath, allgrams, targets, temp)
+                    mypath, allgrams = grow(mypath, allgrams, targets, temp)
                 pgrammars[f"Possible {j}:{i}"] = self.build_grammar_stem(mypath, tokens, allgrams)
-        return pgrammars
+        return pgrammars, allgrams
     
-    def suggest_element(self, previous, allgrams, temp, k_type):
+    def suggest_element(self, master, previous, allgrams, temp, k_type):
         #allgrams = list(allgrams.keys())
-        confirmed = False
-        counter = 0
-        while not confirmed:
-            counter += (20*temp)
-            first = random.randint(0, counter)
-            second = random.randint(0, counter)
-            #third = random.randint(0,len(allgrams))
-            if first - second >= 0:
-                if first < len(allgrams):
-                    if allgrams[first] not in previous:
-                        confirmed = True
-                    if k_type == 'stems' and len(allgrams[first][0]) == 1:
-                        confirmed = False
-            if counter >= len(allgrams):
-                for gram in allgrams:
-                    if gram not in previous:
-                        return gram
-        return allgrams[first]
+        if 'used' not in master:
+            master['used'] = {}
+        for first in range(len(allgrams)-1):
+            if allgrams[first] not in previous:
+                break
+        if first not in master['used']:
+            master['used'][first] = 1
+        else:
+            master['used'][first] += 1
+        if master['used'][first] >= len(allgrams[first][0]):
+            master[k_type].pop(first)
+            #then we want to preclude it from use. 
+        return allgrams[first], master
 
 
 
@@ -654,8 +632,15 @@ class Tiztikz:
         adjusted_probability = x + np.log(gaussian_multiplier)
         return adjusted_probability
     
-    def side_hustle(self, tokens, stems):
-        stems = [s[0] for s in stems]
+    def side_hustle(self, tokens, stems, entities, counts):
+        with open(stems, "r") as inj:
+            stems = json.load(inj)
+        if type(stems) == dict:
+            return stems
+        if entities:
+            with open(entities, 'r') as inj:
+                entities = json.load(inj)
+        #stems = [s[0] for s in stems]
                 # Initialize the dictionary with a key for non-fitting tokens
         stem_dict = {'non-fitting': []}
 
@@ -680,13 +665,22 @@ class Tiztikz:
             
             # If no stem fits, add the token to the non-fitting list
             if not found_fit:
-                stem_dict['non-fitting'].append(token)
+                if entities:
+                    if token in entities:
+                        print(f"filtering out an entity: {token}")
+                        continue
+                    elif counts[token] > .0007:
+                        print(f"filtering out a stopword: {token}")
+                        continue
+                    else:
+                        stem_dict['non-fitting'].append(token)
 
         with open("side_hustle.json", "w") as outj:
             json.dump(stem_dict, outj, indent=4, ensure_ascii=False)
+        print(len(stem_dict['non-fitting']))
         return stem_dict
 
 
 
 if __name__ == "__main__":
-    mytiztikz = Tiztikz('data/source_texts/nepali_bible_reformatted.txt', allgrams='allgrams.json', stems = 'data/nep_dict_unified.json') #, ,  allgrams='allgrams.json'
+    mytiztikz = Tiztikz('data/source_texts/nepali_bible_reformatted.txt', grammar = 'new_best_grammar.json', allgrams= 'allgrams.json', stems = 'data/side_hustle.json', entities = 'data/extracted_entities.json') #, ,  allgrams='allgrams.json'
