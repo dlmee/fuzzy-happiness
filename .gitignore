@@ -1,3 +1,8 @@
 fhvenv/
 data/
 allgrams.json
+calls/
+fhvenv/
+logs/
+nepali/
+final/stem_vectors.json

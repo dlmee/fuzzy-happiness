@@ -10,14 +10,16 @@ import numpy as np
 from Levenshtein import distance as lstn
 
 class Tiztikz:
-    def __init__(self, corpus, grammar = None, allgrams = None, stems=None, entities=None):
-        tokens, counts = self.read_dev_txt(corpus)
+    def __init__(self, corpus, grammar = None, allgrams = None, stems=None, entities=None, test=None):
+        tokens, counts = self.read_dev_txt(corpus, test)
+        with open("stopword_analysis.json", "w") as outj:
+            json.dump(counts, outj, indent=4, ensure_ascii=False)
         self.allgrams = self.morph_merge(tokens, counts, grammar=grammar, allgrams=allgrams, stems=stems, entities=entities)
         with open("morphemic_breakdown.json", "w") as outj:
             json.dump(self.allgrams, outj, indent=4, ensure_ascii=False)
         
 
-    def read_txt(self, corpus):
+    def read_txt(self, corpus, test):
         text = corpus
         with open(text, encoding="utf-8") as fi:
             lines = fi.read()
@@ -26,7 +28,7 @@ class Tiztikz:
         lines = [[word for word in line if word] for line in lines]
         return lines
 
-    def read_dev_txt(self, corpus):
+    def read_dev_txt(self, corpus, test):
         text = corpus
         with open(text, encoding="utf-8") as fi:
             lines = fi.read()
@@ -53,7 +55,10 @@ class Tiztikz:
         counts = sorted(list(counts.items()), key = lambda x:x[1], reverse = True)
         counts = {word[0]:word[1] for word in counts}
         lines = set([word for line in lines for word in line if word and re.fullmatch(devanagari_pattern, word)])
-        return list(lines), counts
+        if test:
+            with open(test, 'r') as inj:
+                test = json.load(inj)
+        return list(lines) + test, counts
 
 
     def morph_merge(self, tokens, counts, grammar=None, allgrams=None, stems=None, entities=None):
@@ -164,7 +169,7 @@ class Tiztikz:
         counter = 0
         growing = ['grow','shrink', 'mutate']
         while t > 10:
-            grammars = sorted(grammars, key= lambda x:x['cost'])
+            #grammars = sorted(grammars, key= lambda x:x['cost'])
             grammars = grammars[:1]
             with open(f"new_best_grammar.json", "w") as outj:
                 json.dump(grammars[0], outj, indent=4, ensure_ascii=False)
@@ -180,14 +185,14 @@ class Tiztikz:
                     efficiency = v['cost']
                     grammars.append(v)
                     c_improved = True
-                    t += 10
+                    t += 1
                     growing.append(random.choice(['grow','grow','grow','grow','shrink','mutate']))
                 elif v['probability'] > probability:
                     probability = v['probability']
                     p_improved = True
                     grammars.append(v)
             if not c_improved:
-                t -= 20
+                t -= 12
                 growing.append(random.choice(['shrink','mutate']))
                 grammars.append(previous_grammars[0])
             """if not p_improved:
@@ -343,9 +348,11 @@ class Tiztikz:
 
         def shrink(purge, allgrams, targets, temp):
             for k,v in targets.items():
+                orderer = {c['stems'][0]:len(c['generates']) for c in purge['combinations']}
+                purge[k] = sorted(purge[k], key= lambda x:orderer[x[0]] if x[0] in orderer else 0, reverse=True)
                 counter = 0
                 #if len(purge[k]) < v: continue
-                average = purge['cost'] + 15
+                average = purge['cost'] + 10
                 """for _ in range(v):
                     element = random.choice(purge[k])"""
                 for element in purge[k]:
@@ -360,11 +367,12 @@ class Tiztikz:
                     if count > average:
                         purge[k].remove(element)
                         print(f"purging {k}")
-                        counter +=1
+                        average += 1
+                    counter +=1
                     if k in ['prefixes', 'suffixes']:
                         if ('NULL', 0) not in purge[k]:
                             purge[k].append(('NULL', 0))
-                    if counter == v:
+                    if counter >= v:
                         break
             return purge
         
@@ -386,10 +394,11 @@ class Tiztikz:
     
     def suggest_element(self, master, previous, allgrams, temp, k_type):
         #allgrams = list(allgrams.keys())
+        previous = set([word[0] for word in previous])
         if 'used' not in master:
             master['used'] = {}
         for first in range(len(allgrams)-1):
-            if allgrams[first] not in previous:
+            if allgrams[first][0] not in previous:
                 break
         if first not in master['used']:
             master['used'][first] = 1
@@ -683,4 +692,4 @@ class Tiztikz:
 
 
 if __name__ == "__main__":
-    mytiztikz = Tiztikz('data/source_texts/nepali_bible_reformatted.txt', grammar = 'new_best_grammar.json', allgrams= 'allgrams.json', stems = 'data/side_hustle.json', entities = 'data/extracted_entities.json') #, ,  allgrams='allgrams.json'
+    mytiztikz = Tiztikz('data/source_texts/nepali_bible_reformatted.txt', allgrams='allgrams.json', grammar = 'new_best_grammar.json', stems = 'data/side_hustle.json', entities = 'data/extracted_entities.json', test = 'test_words.json') #, ,    , allgrams= 'allgrams.json',

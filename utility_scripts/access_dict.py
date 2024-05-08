@@ -8,16 +8,27 @@ connection = sqlite3.connect('data/nep_dict.sqlite3')
 cursor = connection.cursor()
 
 # Execute a query
-cursor.execute("SELECT * FROM word")
+query = "PRAGMA table_info(definition);"
+query = """
+SELECT word.value, definition.value
+FROM word
+JOIN definition ON word.id = definition.word_id
+"""
+#cursor.execute("SELECT * FROM word")
+cursor.execute(query)
 #cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 
+#print(cursor.fetchall())
+
 # Fetch and print all rows from the query
-vocabulary = []
+vocabulary = {}
 rows = cursor.fetchall()
 for row in rows:
-    print(row)
-    vocabulary.append(row[1])
-with open("nep_dict_supp.json", "w") as outj:
+    if row[0] not in vocabulary:
+        vocabulary[row[0]] = [row[1]]
+    else:
+        vocabulary[row[0]].append(row[1])
+with open("nep_supp_wdef.json", "w") as outj:
     json.dump(vocabulary, outj, indent=4, ensure_ascii=False)
 
 # Don't forget to close the connection
