@@ -11,13 +11,15 @@ def load_mapping_file(file_path):
         mapping = json.load(f)
     return mapping
 
+import re
+
 def extract_verse_stems(text_lines, target_books, word_mapping):
     verse_stems = {}
     stem_verses = {}
 
     current_book = None
     for line in text_lines:
-        match = re.match(r'^(\S+)\s+(\d+:\d+)\s+(.*)$', line)
+        match = re.match(r'^(\d*\s*\S+)\s+(\d+:\d+(?:-\d+)?)\s+(.*)$', line)
         if match:
             book, verse, content = match.groups()
             current_book = book
@@ -39,15 +41,39 @@ def extract_verse_stems(text_lines, target_books, word_mapping):
                             stem_verses[stem] = []
                         if verse_key not in stem_verses[stem]:
                             stem_verses[stem].append(verse_key)
+        else:
+            match = re.match(r'^(\S+)\s+(\d+:\d+(?:-\d+)?)\s+(.*)$', line)
+            if match:
+                book, verse, content = match.groups()
+                current_book = book
+
+                if current_book in target_books:
+                    verse_key = f"{book} {verse}"
+                    verse_stems[verse_key] = []
+
+                    words = content.split()
+                    for word in words:
+                        # Remove any non-alphanumeric characters from the word
+                        word = re.sub(r'[^a-zA-Z0-9\u0900-\u097F]+', '', word)
+                        if word in word_mapping:
+                            stem = word_mapping[word]['stem']
+                            if stem not in verse_stems[verse_key]:
+                                verse_stems[verse_key].append(stem)
+
+                            if stem not in stem_verses:
+                                stem_verses[stem] = []
+                            if verse_key not in stem_verses[stem]:
+                                stem_verses[stem].append(verse_key)
     
     return verse_stems, stem_verses
+
 
 def write_to_json(data, output_file):
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
-    text_file_path = "data/source_texts/nepali_bible_reformatted.txt"  # Replace with the path to your text file
+    text_file_path = "data/source_texts/nepali_bible_realigned.txt"  # Replace with the path to your text file
     mapping_file_path = "final/inverse_final_nepali.json"  # Replace with the path to your mapping file
     target_books = ["Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians","Ephesians","Philippians","Colossians",
 "1 Thessalonians", "2 Thessalonians","1 Timothy","2 Timothy",

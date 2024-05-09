@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from llmWrapper import LLMWrapper
 from generic_prompt import GENP
 from batched_prompt import BATP
+from align_prompt import ALIP
 from datetime import datetime
 from random import random
 import atexit
@@ -19,10 +20,11 @@ class Multithread_LLM():
     def __init__(self, targets, threads=10, languages = ("Unknown", "English")) -> None:
         self.open_log()
         self.llm = LLMWrapper(self.log)
+        self.lock = threading.Lock()
         with open(targets, 'r') as inj:
             mytargets = json.load(inj)
         myresults = self.batch_hub(mytargets, threads=threads, languages=languages)
-        with open("My_LLM_Results_batched.json", "w") as outj:
+        with open("My_LLM_Results_aligned.json", "w") as outj:
             json.dump(myresults, outj, indent=4, ensure_ascii=False)
         
 
@@ -42,22 +44,17 @@ class Multithread_LLM():
         lang1, lang2 = languages
         template = GENP()
         template = BATP()
+        template = ALIP()
         batch = []
         counter = 0
-        bb = []
         for k,v in my_targets.items():
             if k == '**length**': continue
             try:
-                print(k)
-                if len(v['forms']) != 1: continue
-                bb.append(k)
-                if len(bb) >= 10:
-                #if counter % 5 == 0: break
-                    batch.append((template.make_message(lang1, lang2, bb), allresults, counter+1))
-                    bb = []
-                    counter += 1
+                batch.append((template.make_message(lang1, lang2, v), allresults, k))
+                counter += 1
             except KeyError as e:
                 print(f"Key error {e}")
+            #if counter == 5: break
         print(f"the total number of calls is {counter}")
         if threads > len(batch):
             threads = len(batch)
@@ -90,15 +87,18 @@ class Multithread_LLM():
                 response = self.llm(call, js=True)
                 #print(type(response))
                 #print(response)
-                storage[label] = response
+                with self.lock:
+                    storage[label] = response
                 print("and done!")
             except json.decoder.JSONDecodeError as e:
                 print(f"Failed to process {label} with error {e}")
+            except KeyboardInterrupt as e2:
+                return
 
 
 
 if __name__ == "__main__":
-    mythreads = Multithread_LLM('new_dictionary_afx.json', languages=('Nepali', 'English'))
+    mythreads = Multithread_LLM('aligned_verses.json', languages=('Nepali', 'English'))
 
 
 
