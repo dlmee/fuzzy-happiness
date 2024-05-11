@@ -36,6 +36,35 @@ def read_dev_txt(text, target = ['Genesis']):
     lines = set([word for line in lines for word in line if word])
     return list(lines), counts
 
+def read_txt(corpus, target):
+    text = corpus
+    counts = {'**total**': 0}
+    with open(text, encoding="utf-8") as fi:
+        lines = fi.read()
+    
+    lines = re.split(r"\n", lines)
+    lines = [line for line in lines if line.split(' ')[0] in target]
+    #lines = re.split(r"[\.\?\!]", lines)
+    processed_lines = []
+
+    for line in lines:
+        line = line.split('\t')
+        if len(line) <= 1: continue
+        words = [re.sub("[^a-z]", "", word.lower()) for word in re.split(" |-|\n|—", line[1])]
+        processed_lines = processed_lines + [word for word in words if word]
+        for word in words:
+            if word in counts:
+                counts[word] += 1
+            else:
+                counts[word] = 1
+            counts['**total**'] += 1
+    for k,v in counts.items():
+        if k != '**total**':
+            counts[k] = v/counts['**total**']
+    counts = sorted(list(counts.items()), key = lambda x:x[1], reverse = True)
+    counts = {word[0]:word[1] for word in counts}
+    return list(set(processed_lines)), counts
+
 def map_words_to_stems(words, stem_dict, entity, sw, definitions):
     """Map words to their stems, enrich with definitions early, optimize single-entry stems with unknown definitions."""
     final_dict = {}
@@ -106,7 +135,7 @@ for entry in data['combinations']:
 
 
 # Process the text file and get words
-words, _ = read_dev_txt(input_text, target_books)
+words, _ = read_txt(input_text, target_books)
 
 # Map words to their corresponding stems
 final_dictionary = map_words_to_stems(words, stem_dict, entity, sw, definitions)

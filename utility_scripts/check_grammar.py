@@ -36,6 +36,35 @@ def read_dev_txt(text, target = ['Genesis']):
     lines = set([word for line in lines for word in line if word])
     return list(lines), counts
 
+def read_txt(corpus, target):
+    text = corpus
+    counts = {'**total**': 0}
+    with open(text, encoding="utf-8") as fi:
+        lines = fi.read()
+    
+    lines = re.split(r"\n", lines)
+    lines = [line for line in lines if line.split(' ')[0] in target]
+    #lines = re.split(r"[\.\?\!]", lines)
+    processed_lines = []
+
+    for line in lines:
+        line = line.split('\t')
+        if len(line) <= 1: continue
+        words = [re.sub("[^a-z]", "", word.lower()) for word in re.split(" |-|\n|—", line[1])]
+        processed_lines = processed_lines + [word for word in words if word]
+        for word in words:
+            if word in counts:
+                counts[word] += 1
+            else:
+                counts[word] = 1
+            counts['**total**'] += 1
+    for k,v in counts.items():
+        if k != '**total**':
+            counts[k] = v/counts['**total**']
+    counts = sorted(list(counts.items()), key = lambda x:x[1], reverse = True)
+    counts = {word[0]:word[1] for word in counts}
+    return list(set(processed_lines)), counts
+
 def map_words_to_stems(words, stem_dict, entity, sw):
     """Map words to their stems, optimize single-entry stems, sort by length of values, and track changes."""
     final_dict = {}
@@ -76,7 +105,7 @@ def map_words_to_stems(words, stem_dict, entity, sw):
 
 
 # Example usage
-input_text = 'data/source_texts/nepali_bible_reformatted.txt'  # Path to the text file to be processed
+input_text = 'data/source_texts/swh_mft_reformatted.txt'  # Path to the text file to be processed
 target_books = ["Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians","Ephesians","Philippians","Colossians",
 "1 Thessalonians", "2 Thessalonians","1 Timothy","2 Timothy",
 "Titus","Philemon","Hebrews","James","1 Peter","2 Peter",
@@ -88,14 +117,13 @@ output_file = 'new_dictionary.json'  # Path to output JSON containing stems and 
 
 # Read and process the JSON file to create the stem dictionary
 data = read_json(input_file)
-entity = read_json(entity_file)
-sw = read_json(stopword_file)
+#entity = read_json(entity_file)
+#sw = read_json(stopword_file)
 stem_dict = {}
 for entry in data['combinations']:
     if entry['generates'] and entry['stems']:
-        if len(entry['generates']) > 1 and len(entry['generates']) < 10:
-            #print("found you!")
-            pass
+        if len(entry['generates']) > 50:
+            continue
         for word in entry['generates']:
             key = re.sub('-', '', word)
             value = entry['stems']
@@ -103,8 +131,9 @@ for entry in data['combinations']:
 
 
 # Process the text file and get words
-words, _ = read_dev_txt(input_text, target_books)
-
+words, _ = read_txt(input_text, target_books)
+entity = []
+sw = []
 # Map words to their corresponding stems
 final_dictionary = map_words_to_stems(words, stem_dict, entity, sw)
 

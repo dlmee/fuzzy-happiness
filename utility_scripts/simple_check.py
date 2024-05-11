@@ -35,6 +35,30 @@ def read_dev_txt(text):
     lines = set([word for line in lines for word in line if word])
     return list(lines), counts
 
+def read_txt(self, corpus):
+    text = corpus
+    counts = {'**total**': 0}
+    with open(text, encoding="utf-8") as fi:
+        lines = fi.read()
+
+    lines = re.split(r"[\.\?\!]", lines)
+    processed_lines = []
+
+    for line in lines:
+        line = line.split('\t')
+        if len(line) <= 1: continue
+        words = [re.sub("[^a-z]", "", word.lower()) for word in re.split(" |-|\n|—", line[1])]
+        processed_lines = processed_lines + [word for word in words if word]
+        for word in words:
+            if word in counts:
+                counts[word] += 1
+            else:
+                counts[word] = 1
+            counts['**total**'] += 1
+    
+    return list(set(processed_lines)), counts
+
+
 def map_words_to_stems(words, stem_dict, entity, sw):
     """Map words to their stems, optimize single-entry stems, sort by length of values, and track changes."""
     final_dict = {}

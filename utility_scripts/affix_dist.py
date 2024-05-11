@@ -62,5 +62,5 @@ def process_affixes(file_path, output_file):
 
 # Usage
 file_path = 'new_best_grammar.json'  # Path to the input JSON file
-output_file = 'data/affix_counts.json'  # Path to the output JSON file
+output_file = 'swahili/affix_counts.json'  # Path to the output JSON file
 process_affixes(file_path, output_file)
