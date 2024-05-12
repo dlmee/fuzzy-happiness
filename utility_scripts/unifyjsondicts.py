@@ -39,7 +39,7 @@ def merge_dictionaries(file1, file2, output_file):
         else:
             unified_dict[elem['w']] = [' '.join(re.findall(pattern, re.sub(r'<[^>]*>', '', elem['h'])))]
     # Write the unified dictionary to the output file
-    unified_dict = list(unified_dict.keys())
+    #unified_dict = list(unified_dict.keys())
     write_json(unified_dict, output_file)
 
 # Usage

@@ -39,6 +39,35 @@ def read_dev_txt(text, target = None):
     lines = set([word for line in lines for word in line if word])
     return list(lines), counts
 
+def read_txt(corpus, target):
+    text = corpus
+    counts = {'**total**': 0}
+    with open(text, encoding="utf-8") as fi:
+        lines = fi.read()
+    
+    lines = re.split(r"\n", lines)
+    lines = [line for line in lines if line.split(' ')[0] in target]
+    #lines = re.split(r"[\.\?\!]", lines)
+    processed_lines = []
+
+    for line in lines:
+        line = line.split('\t')
+        if len(line) <= 1: continue
+        words = [re.sub("[^a-z]", "", word.lower()) for word in re.split(" |-|\n|—", line[1])]
+        processed_lines = processed_lines + [word for word in words if word]
+        for word in words:
+            if word in counts:
+                counts[word] += 1
+            else:
+                counts[word] = 1
+            counts['**total**'] += 1
+    for k,v in counts.items():
+        if k != '**total**':
+            counts[k] = v/counts['**total**']
+    counts = sorted(list(counts.items()), key = lambda x:x[1], reverse = True)
+    counts = {word[0]:word[1] for word in counts}
+    return list(set(processed_lines)), counts
+
 def map_words_to_stems(words, stem_dict, entity, sw, definitions, affixes):
     """Map words to their stems, optimize entries, and reject erroneous stems identified as affixes."""
     final_dict = {}
@@ -114,25 +143,28 @@ def map_words_to_stems(words, stem_dict, entity, sw, definitions, affixes):
 
 
 # Example usage
-input_text = 'data/source_texts/nepali_bible_reformatted.txt'  # Path to the text file to be processed
+input_text = 'data/source_texts/swh_mft_reformatted.txt'  # Path to the text file to be processed
 target_books = ["Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians","Ephesians","Philippians","Colossians",
 "1 Thessalonians", "2 Thessalonians","1 Timothy","2 Timothy",
 "Titus","Philemon","Hebrews","James","1 Peter","2 Peter",
 "1 John","2 John","3 John","Jude","Revelation", "Genesis", "Matthew", "Mark", "Luke", "John"]
 #target_books = None
-entity_file = 'data/extracted_entities.json'
-stopword_file = 'data/stopword_analysis.json'
+#entity_file = 'data/extracted_entities.json'
+#stopword_file = 'data/stopword_analysis.json'
 input_file = 'new_best_grammar.json'  # Path to your JSON file
 output_file = 'new_dictionary_afx_final.json'  # Path to output JSON containing stems and words mapping
-definitions = 'data/nep3dict_unified_wdef.json'
-affixes = 'data/affix_counts.json'
+definitions = 'swahili/sw_dict_unified_wdef.json'
+affixes = 'swahili/affix_counts.json'
 
 # Read and process the JSON file to create the stem dictionary
 data = read_json(input_file)
-entity = read_json(entity_file)
 definitions = read_json(definitions)
 affixes = read_json(affixes)
-sw = read_json(stopword_file)
+#entity = read_json(entity_file)
+#sw = read_json(stopword_file)
+entity = []
+sw = []
+
 stem_dict = {}
 for entry in data['combinations']:
     if entry['generates'] and entry['stems']:
@@ -146,7 +178,7 @@ for entry in data['combinations']:
 
 
 # Process the text file and get words
-words, _ = read_dev_txt(input_text, target_books)
+words, _ = read_txt(input_text, target_books)
 
 # Map words to their corresponding stems
 final_dictionary = map_words_to_stems(words, stem_dict, entity, sw, definitions, affixes)

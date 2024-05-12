@@ -43,8 +43,8 @@ class Multithread_LLM():
         allresults = {}
         lang1, lang2 = languages
         template = GENP()
-        template = BATP()
-        template = ALIP()
+        #template = BATP()
+        #template = ALIP()
         batch = []
         counter = 0
         for k,v in my_targets.items():
