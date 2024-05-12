@@ -21,9 +21,9 @@ def inverse_json(input_json):
     return inverted_data
 
 def main():
-    input_json = "final/final_nepali.json"  # Update with your JSON file name
+    input_json = "swahili/formatted_llm_response_ALL.json"  # Update with your JSON file name
     inverted_data = inverse_json(input_json)
-    with open("final/inverse_final_nepali.json", "w") as outj:
+    with open("swahili/inverse_final_swahili.json", "w") as outj:
         json.dump(inverted_data, outj, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":

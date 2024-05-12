@@ -24,7 +24,7 @@ class Multithread_LLM():
         with open(targets, 'r') as inj:
             mytargets = json.load(inj)
         myresults = self.batch_hub(mytargets, threads=threads, languages=languages)
-        with open("My_LLM_Results_aligned.json", "w") as outj:
+        with open("My_LLM_Results_stem_validation_batched.json", "w") as outj:
             json.dump(myresults, outj, indent=4, ensure_ascii=False)
         
 
@@ -43,15 +43,21 @@ class Multithread_LLM():
         allresults = {}
         lang1, lang2 = languages
         template = GENP()
-        #template = BATP()
+        template = BATP()
         #template = ALIP()
         batch = []
         counter = 0
+        bb = []
         for k,v in my_targets.items():
             if k == '**length**': continue
+            if len(v['forms']) > 1: continue
             try:
-                batch.append((template.make_message(lang1, lang2, v), allresults, k))
-                counter += 1
+                bb.append(v['forms'][0])
+                if len(bb) == 10:
+                    #batch.append((template.make_message(lang1, lang2, v['forms']), allresults, k)) This is for unbatched
+                    counter += 1
+                    batch.append((template.make_message(lang1, lang2, bb), allresults, counter))
+                    bb = []
             except KeyError as e:
                 print(f"Key error {e}")
             #if counter == 5: break
@@ -98,7 +104,7 @@ class Multithread_LLM():
 
 
 if __name__ == "__main__":
-    mythreads = Multithread_LLM('aligned_verses.json', languages=('Nepali', 'English'))
+    mythreads = Multithread_LLM('swahili/new_dictionary_afx_final.json', languages=('Swahili', 'English'))
 
 
 

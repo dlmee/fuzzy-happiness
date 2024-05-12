@@ -32,7 +32,7 @@ def calculate_averaged_result(data):
     return total_matches / total_entries
 
 # Path to the JSON file
-json_file_path = 'My_LLM_Results.json'
+json_file_path = 'My_LLM_Results_stem_validation.json'
 
 # Read data from JSON file
 with open(json_file_path, 'r', encoding='utf-8') as file:
