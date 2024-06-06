@@ -9,7 +9,12 @@ from itertools import permutations
 import numpy as np
 from Levenshtein import distance as lstn
 import multiprocessing
+from db_cachev_opt import Cache
 
+
+cache = Cache()
+
+@cache.cache_class_methods
 class Tiztikz:
     def __init__(self, corpus, grammar = None, allgrams = None, stems=None, entities=None, test=None):
         tokens, counts = self.read_txt(corpus)
@@ -87,20 +92,20 @@ class Tiztikz:
             with open(allgrams, 'r') as inj:
                 allgrams = json.load(inj)
         else:
-            allgrams, stems = self._first_pass(tokens, counts, stems, entities)
-            allgrams = self._second_pass(allgrams, tokens)
+            allgrams, stems = self.first_pass(tokens, counts, stems, entities)
+            allgrams = self.second_pass(allgrams, tokens)
             with open("allgrams_s2", "w") as outj:
                 json.dump(allgrams, outj, indent=4, ensure_ascii=False)
             """with open("allgrams_s2.json", 'r') as inj:
                 allgrams = json.load(inj)"""
-            allgrams = self._third_pass(allgrams, stems)
+            allgrams = self.third_pass(allgrams, stems)
             with open("allgrams.json", 'w') as outj:
                 json.dump(allgrams, outj, indent=4, ensure_ascii=False)
             
         allgrams = self.morph_merge(allgrams, tokens, grammar=grammar)
         return allgrams
 
-    def _first_pass(self, tokens, counts, stems, entities):
+    def first_pass(self, tokens, counts, stems, entities):
         #Need to collect the types of words, to know what we have to be able to build. 
         allgrams = {'**word**': {'**total**': {}}}
         if stems:
@@ -143,7 +148,7 @@ class Tiztikz:
         return allgrams
 
 
-    def _second_pass(self, allgrams, tokens):
+    def second_pass(self, allgrams, tokens):
         for word in tqdm(tokens, desc="Second pass"):
             if not word: continue
             if len(word) > 14:
@@ -170,7 +175,7 @@ class Tiztikz:
                 allgrams[n][stem]['sufp'] = allgrams[n][stem]['after']['#'] / (sum([count for key, count in allgrams[n][stem]['after'].items() if key != '#']) + 1)
         return allgrams
 
-    def _third_pass(self, allgrams, stems):
+    def third_pass(self, allgrams, stems):
         transformed = {}
         stage_1 = {}
         #Stage 1 range of xx / range all xx for n, types. 
@@ -222,8 +227,9 @@ class Tiztikz:
         print("And done!")
         
         #Just need to fix the stems
+        print("Fixing the stems")
         transformed = {str(k):{} for k in stage_1.keys()}
-        for n, details in allgrams.items():
+        for n, details in tqdm(allgrams.items(), desc="Fixing stems"):
             n = str(n)
             for element, data in details.items():
                 if not element: continue
@@ -237,9 +243,11 @@ class Tiztikz:
                         "suffixes": s1_lognorm + s2_lognorm + self.safe_log(stage_3[len(element)][element]['suffixes'],stage_3[len(element)]['suffixes']),
                         "stems": s1_lognorm + s2_lognorm + self.safe_log((stage_3[len(element)][element]['stemix']/ ((stage_3[len(element)][element]['prefixes'] + stage_3[len(element)][element]['suffixes']) + 1)),stage_3[len(element)]['stemix'])
                     }
+        
         #Final stage, gaussian distribution and sorting!
+        print("Final stage, Gaussian distribuitions and sorting, starting now!")
         allgrams2 = {'prefixes':[], 'suffixes':[], 'stems':[]}
-        for v in transformed.values():
+        for v in tqdm(transformed.values(), desc="final stage_p1"):
             for k2, v2 in v.items():
                 for k3, v3 in v2.items():
                     if k3 == 'stems':
@@ -277,8 +285,7 @@ class Tiztikz:
 
             transformed['stems'] = sorted(transformed['stems'], key= lambda x:x[1], reverse=True)
 
-        """with open("nep_dict_1.json", "w") as outj:
-            json.dump([word for word, prob in paired_stems], outj, indent=4, ensure_ascii=False)"""
+        print("Final stage, Gaussian distribuitions and sorting, finished now!")
         return transformed
     
     def morph_merge(self, allgrams, tokens, grammar = None):
@@ -348,17 +355,17 @@ class Tiztikz:
             if str(len(word)) in allgrams:
                 if word not in allgrams[str(len(word))]:
                     continue
-            decomposition = self.recursive_decompose(word, [pre for pre, prob in grammar['prefixes']], [stem for stem, prob in grammar['stems']], [suf for suf, prob in grammar['suffixes']])
+            decomposition = self._recursive_decompose(word, [pre for pre, prob in grammar['prefixes']], [stem for stem, prob in grammar['stems']], [suf for suf, prob in grammar['suffixes']])
             if decomposition:
                 if len(decomposition) > 1:
-                    decomposition, breakdown = self.best_dc(word, decomposition, allgrams)
+                    decomposition, breakdown = self._best_dc(word, decomposition, allgrams)
                 else:
                     decomposition = decomposition[0]
                     breakdown = [(el, allgrams[str(len(el))][el][k]) for k,v in decomposition.items() for el in v]
                 word = '-'.join([br[0] for br in breakdown])
                 prob = sum([br[1] for br in breakdown])/len(breakdown)
                 #decomposition['stems'] = decomposition['stems']
-                grammar = self.shift(grammar, decomposition) #This makes used rules less likely to be dropped. 
+                grammar = self._shift(grammar, decomposition) #This makes used rules less likely to be dropped. 
                 stempool = [s for s in decomposition['stems']]
                 if grammar['combinations']:
                     for stem in stempool:
@@ -404,7 +411,7 @@ class Tiztikz:
         grammar['combinations'] = sorted(grammar['combinations'], key = lambda x:len(x['generates']), reverse=True)
         return grammar
     
-    def shift(self, grammar, decomposition):
+    def _shift(self, grammar, decomposition):
         for k,v in decomposition.items():
             for word in v:
                 if len(word) == 1: continue
@@ -448,7 +455,7 @@ class Tiztikz:
         return None"""
 
 
-    def recursive_decompose(self, target_word, prefixes, stems, suffixes):
+    def _recursive_decompose(self, target_word, prefixes, stems, suffixes):
         decompositions = []
 
         # Base case: If the target word matches any stem directly
@@ -459,7 +466,7 @@ class Tiztikz:
         for prefix in prefixes:
             if target_word.startswith(prefix):
                 new_target = target_word[len(prefix):]
-                new_decompositions = self.recursive_decompose(new_target, prefixes, stems, suffixes)
+                new_decompositions = self._recursive_decompose(new_target, prefixes, stems, suffixes)
                 for decomp in new_decompositions:
                     decomp['prefixes'].insert(0, prefix)
                 decompositions.extend(new_decompositions)
@@ -468,7 +475,7 @@ class Tiztikz:
         for suffix in suffixes:
             if target_word.endswith(suffix):
                 new_target = target_word[:-len(suffix)]
-                new_decompositions = self.recursive_decompose(new_target, prefixes, stems, suffixes)
+                new_decompositions = self._recursive_decompose(new_target, prefixes, stems, suffixes)
                 for decomp in new_decompositions:
                     decomp['suffixes'].append(suffix)
                 decompositions.extend(new_decompositions)
@@ -476,7 +483,7 @@ class Tiztikz:
         return decompositions
     
 
-    def best_dc(self, word, decompositions, allgrams):
+    def _best_dc(self, word, decompositions, allgrams):
         possibles = []
         for decomp in decompositions:
             possibles.append((decomp, [(el, allgrams[str(len(el))][el][k]) for k,v in decomp.items() for el in v]))
@@ -529,7 +536,7 @@ class Tiztikz:
         def grow(additive, allgrams, targets, temp):
             for k,v in targets.items():
                 for _ in range((v+1)):
-                    addition, allgrams = self.suggest_element(allgrams, additive[k], allgrams[k], temp, k)
+                    addition, allgrams = self._suggest_element(allgrams, additive[k], allgrams[k], temp, k)
                     additive[k].append(addition)
             return additive, allgrams
 
@@ -591,7 +598,7 @@ class Tiztikz:
         
         return pgrammars, allgrams
     
-    def suggest_element(self, master, previous, allgrams, temp, k_type):
+    def _suggest_element(self, master, previous, allgrams, temp, k_type):
         #allgrams = list(allgrams.keys())
         previous = set([word[0] for word in previous])
         if 'used' not in master:
@@ -811,4 +818,5 @@ class Tiztikz:
 
 
 if __name__ == "__main__":
-    mytiztikz = Tiztikz('data/source_texts/swh_mft_reformatted.txt', allgrams = 'allgrams.json', stems = 'side_hustle.json', grammar='new_best_grammar.json') #, ,    , allgrams= 'allgrams.json',
+    cache = Cache()
+    mytiztikz = Tiztikz('swahili/swh_mft_gen.txt')

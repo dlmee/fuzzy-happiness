@@ -9,3 +9,6 @@ final/stem_vectors.json
 tizvenv/
 prompts/__pycache__/
 nepali_experiments/
+cache/
+__pycache__/
+prompts/__pycache__
