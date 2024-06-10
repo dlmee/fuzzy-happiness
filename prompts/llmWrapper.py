@@ -10,7 +10,11 @@ from glob import glob
 import json
 from copy import deepcopy
 from random import random
+from db_cache_pickle_V2 import Cache
 
+cache = Cache()
+
+@cache.cache_class_methods
 class LLMWrapper:
     def __init__(self, log=None):
         # if log is None, we're ONLY postprocessing existing files, not running new stuff
@@ -101,7 +105,7 @@ class LLMWrapper:
         if today is not None:
             self.running["today"] = today
         return self.running
-    
+
     def __call__(self, prompt, js = False, badJS = 5):
         foo = f'calls/{datetime.now().strftime("%Y%m%d_%H%M%S")}_{random()}.txt'
         with open(foo, 'w') as fo:

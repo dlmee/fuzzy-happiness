@@ -8,23 +8,26 @@ from batched_prompt import BATP
 from align_prompt import ALIP
 from datetime import datetime
 from random import random
+from db_cache_pickle_V2 import Cache
 import atexit
 import os
-
 
 
 load_dotenv()
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
+cache = Cache()
+
 class Multithread_LLM():
     def __init__(self, targets, threads=10, languages = ("Unknown", "English")) -> None:
         self.open_log()
         self.llm = LLMWrapper(self.log)
+        #self.llm = DummyLLM()
         self.lock = threading.Lock()
         with open(targets, 'r') as inj:
             mytargets = json.load(inj)
         myresults = self.batch_hub(mytargets, threads=threads, languages=languages)
-        with open("My_LLM_Results_stem_validation_batched.json", "w") as outj:
+        with open("testdb_out.json", "w") as outj:
             json.dump(myresults, outj, indent=4, ensure_ascii=False)
         
 
@@ -89,10 +92,7 @@ class Multithread_LLM():
         #Restructured the call to now have all the elements for both calls.
         for call, storage, label in batch:
             try:
-                #print(call)
                 response = self.llm(call, js=True)
-                #print(type(response))
-                #print(response)
                 with self.lock:
                     storage[label] = response
                 print("and done!")
@@ -103,8 +103,9 @@ class Multithread_LLM():
 
 
 
+
 if __name__ == "__main__":
-    mythreads = Multithread_LLM('swahili/new_dictionary_afx_final.json', languages=('Swahili', 'English'))
+    mythreads = Multithread_LLM('swahili/new_dictionary_afx_final.json', languages=('Swahili', 'English'), threads=1)
 
 
 

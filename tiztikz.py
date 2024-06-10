@@ -9,7 +9,7 @@ from itertools import permutations
 import numpy as np
 from Levenshtein import distance as lstn
 import multiprocessing
-from db_cachev_opt import Cache
+from prompts.db_cache_pickle_V1 import Cache
 
 
 cache = Cache()
@@ -818,5 +818,4 @@ class Tiztikz:
 
 
 if __name__ == "__main__":
-    cache = Cache()
     mytiztikz = Tiztikz('swahili/swh_mft_gen.txt')
